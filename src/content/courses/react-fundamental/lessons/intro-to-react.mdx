@@ -1,0 +1,132 @@
+---
+title: Pengenalan React
+description: Memahami konsep dasar React dan alasan mengapa React sangat populer
+order: 1
+---
+
+# Pengenalan React
+
+React adalah pustaka JavaScript yang dikembangkan oleh Facebook (sekarang Meta) untuk membangun antarmuka pengguna (UI) yang interaktif dan reaktif. Dirilis pada tahun 2013, React telah menjadi salah satu teknologi frontend paling populer, digunakan oleh perusahaan-perusahaan besar seperti Facebook, Instagram, Netflix, Airbnb, dan banyak lagi.
+
+## Apa Itu React?
+
+React adalah **pustaka** (library), bukan kerangka kerja (framework). Ini berarti React fokus pada satu hal saja: membuat UI komponen. React tidak memaksakan pendapat tentang arsitektur aplikasi Anda, dan dapat diintegrasikan dengan teknologi lain untuk membangun aplikasi lengkap.
+
+## Mengapa Belajar React?
+
+Ada beberapa alasan mengapa React sangat populer dan berharga untuk dipelajari:
+
+1. **Pendekatan Berbasis Komponen**
+   React mendorong pengembangan berbasis komponen yang dapat digunakan kembali, membuat kode lebih mudah dikelola dan dipelihara.
+
+2. **Virtual DOM**
+   React menggunakan Virtual DOM untuk mengoptimalkan pembaruan, sehingga menghasilkan performa yang lebih baik daripada memanipulasi DOM secara langsung.
+
+3. **Ekosistem yang Kaya**
+   React memiliki ekosistem yang luas dengan pustaka-pustaka pendukung seperti Redux, React Router, dan banyak lagi.
+
+4. **Komunitas yang Besar**
+   Komunitas React yang besar menyediakan banyak sumber daya, tutorial, dan komponen yang dapat digunakan kembali.
+
+5. **Permintaan Pasar Kerja**
+   Keterampilan React sangat diminati oleh perusahaan dan dapat membuka banyak peluang karir.
+
+## Konsep Utama dalam React
+
+### 1. Komponen
+
+Komponen adalah blok bangunan utama dalam React. Secara konseptual, komponen seperti fungsi JavaScript yang menerima input (props) dan mengembalikan elemen React yang menjelaskan apa yang harus ditampilkan di layar.
+
+```jsx
+function Welcome(props) {
+  return <h1>Hello, {props.name}</h1>;
+}
+```
+
+### 2. JSX
+
+JSX adalah ekstensi sintaks untuk JavaScript yang merekomendasikan penggunaan dengan React. Ini terlihat seperti HTML, tetapi memiliki kekuatan JavaScript.
+
+```jsx
+const element = <h1>Hello, world!</h1>;
+```
+
+### 3. Props
+
+Props (properties) adalah cara untuk mengirim data dari komponen induk ke komponen anak.
+
+```jsx
+function Welcome(props) {
+  return <h1>Hello, {props.name}</h1>;
+}
+
+function App() {
+  return <Welcome name="Sara" />;
+}
+```
+
+### 4. State
+
+State adalah data pribadi komponen yang dapat berubah dari waktu ke waktu. Perubahan state memicu pembaruan UI.
+
+```jsx
+function Counter() {
+  const [count, setCount] = useState(0);
+  
+  return (
+    <div>
+      <p>You clicked {count} times</p>
+      <button onClick={() => setCount(count + 1)}>
+        Click me
+      </button>
+    </div>
+  );
+}
+```
+
+## Persiapan Lingkungan Pengembangan
+
+Sebelum mulai mengembangkan dengan React, Anda perlu menyiapkan lingkungan pengembangan:
+
+1. **Node.js dan npm** — Pastikan Anda memiliki Node.js dan npm (Node Package Manager) terbaru.
+2. **Editor Kode** — Visual Studio Code sangat direkomendasikan dengan ekstensi seperti ES7 React Snippets.
+3. **Create React App** — Alat resmi untuk membuat proyek React baru.
+
+```bash
+npx create-react-app my-app
+cd my-app
+npm start
+```
+
+## Membuat Aplikasi React Pertama
+
+Mari kita buat aplikasi Hello World pertama kita dengan React:
+
+```jsx
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+
+function HelloWorld() {
+  return (
+    <div>
+      <h1>Hello, World!</h1>
+      <p>Selamat datang di aplikasi React pertama saya.</p>
+    </div>
+  );
+}
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<HelloWorld />);
+```
+
+## Kesimpulan
+
+Dalam pelajaran ini, kita telah mempelajari dasar-dasar React, konsep utamanya, dan cara menyiapkan lingkungan pengembangan. Kita juga telah membuat aplikasi React sederhana pertama kita.
+
+Pada pelajaran berikutnya, kita akan mempelajari lebih dalam tentang komponen React dan bagaimana membuat komponen yang lebih kompleks.
+
+## Sumber Daya Tambahan
+
+- [Dokumentasi Resmi React](https://reactjs.org/docs/getting-started.html)
+- [Tutorial React Resmi](https://reactjs.org/tutorial/tutorial.html)
+- [Create React App](https://create-react-app.dev/) 

@@ -1,0 +1,157 @@
+---
+title: Variabel dan Tipe Data
+description: Pelajari cara menyimpan dan mengelola data dalam JavaScript
+order: 2
+---
+
+# Variabel dan Tipe Data dalam JavaScript
+
+Dalam JavaScript, variabel digunakan untuk menyimpan data yang dapat digunakan dan diubah selama program berjalan. Pada pelajaran ini, kita akan mempelajari cara mendeklarasikan variabel dan berbagai tipe data yang tersedia di JavaScript.
+
+## Mendeklarasikan Variabel
+
+Di JavaScript modern (ES6+), ada tiga cara untuk mendeklarasikan variabel:
+
+### 1. var (lebih lama, jarang digunakan di kode modern)
+
+```javascript
+var namaDepan = "Budi";
+```
+
+### 2. let (untuk variabel yang nilainya dapat berubah)
+
+```javascript
+let umur = 25;
+umur = 26; // Nilai dapat diubah
+```
+
+### 3. const (untuk variabel yang nilainya tetap/konstan)
+
+```javascript
+const PI = 3.14159;
+// PI = 3.14; // Error! Nilai const tidak dapat diubah
+```
+
+## Aturan Penamaan Variabel
+
+- Nama variabel harus dimulai dengan huruf, underscore (_), atau tanda dollar ($)
+- Nama variabel tidak boleh dimulai dengan angka
+- Nama variabel bersifat case-sensitive (`umur` dan `Umur` adalah variabel berbeda)
+- Tidak boleh menggunakan kata kunci JavaScript sebagai nama variabel
+- Gunakan camelCase untuk variabel dengan beberapa kata (contoh: `namaLengkap`)
+
+## Tipe Data di JavaScript
+
+JavaScript memiliki beberapa tipe data utama:
+
+### 1. String (Teks)
+
+```javascript
+let nama = "Budi Santoso";
+let alamat = 'Jalan Merdeka No. 123';
+let template = `Halo, nama saya ${nama}`;  // Template literals (backticks)
+```
+
+### 2. Number (Angka)
+
+```javascript
+let umur = 25;            // Integer
+let tinggi = 175.5;       // Float
+let negatif = -10;        // Bilangan negatif
+let scientific = 1.23e5;  // 123000
+```
+
+### 3. Boolean (true/false)
+
+```javascript
+let sudahMenikah = false;
+let sudahLulus = true;
+```
+
+### 4. Undefined
+
+```javascript
+let tidakDidefinisikan;
+console.log(tidakDidefinisikan); // undefined
+```
+
+### 5. Null
+
+```javascript
+let dataSengajaKosong = null;
+```
+
+### 6. Object
+
+```javascript
+let siswa = {
+  nama: "Andi",
+  umur: 20,
+  jurusan: "Informatika"
+};
+
+// Mengakses properti
+console.log(siswa.nama);      // "Andi"
+console.log(siswa["umur"]);   // 20
+```
+
+### 7. Array
+
+```javascript
+let buah = ["Apel", "Mangga", "Jeruk"];
+
+// Mengakses elemen array
+console.log(buah[0]);  // "Apel"
+console.log(buah[2]);  // "Jeruk"
+```
+
+## Mengecek Tipe Data dengan typeof
+
+JavaScript menyediakan operator `typeof` untuk mengecek tipe data variabel:
+
+```javascript
+let nama = "Budi";
+let umur = 25;
+let aktif = true;
+let dataKosong = null;
+let tidakDiinisialisasi;
+
+console.log(typeof nama);              // "string"
+console.log(typeof umur);              // "number"
+console.log(typeof aktif);             // "boolean"
+console.log(typeof dataKosong);        // "object" (ini adalah quirk JavaScript)
+console.log(typeof tidakDiinisialisasi); // "undefined"
+```
+
+## Konversi Tipe Data
+
+JavaScript memungkinkan konversi antara tipe data:
+
+```javascript
+// String ke Number
+let stringAngka = "42";
+let angka = Number(stringAngka);  // 42
+let angka2 = parseInt(stringAngka); // 42
+let angka3 = parseFloat("3.14");  // 3.14
+
+// Number ke String
+let harga = 15000;
+let hargaString = String(harga);  // "15000"
+let hargaString2 = harga.toString(); // "15000"
+
+// Ke Boolean
+let booleanValue = Boolean(1);    // true
+let booleanValue2 = Boolean(0);   // false
+let booleanValue3 = Boolean("");  // false
+let booleanValue4 = Boolean("Hello"); // true
+```
+
+## Latihan
+
+1. Buatlah variabel untuk menyimpan data diri Anda (nama, umur, alamat, dll) dengan tipe data yang sesuai.
+2. Tampilkan semua data tersebut menggunakan console.log.
+3. Coba ubah beberapa nilai variabel dan tampilkan lagi.
+
+## Kesimpulan
+
+Variabel dan tipe data adalah konsep fundamental dalam JavaScript. Dengan memahami cara menyimpan dan memanipulasi data, Anda dapat mulai membangun program yang lebih kompleks. Pada pelajaran berikutnya, kita akan mempelajari tentang operator dan ekspresi dalam JavaScript. 
