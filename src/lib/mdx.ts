@@ -6,6 +6,8 @@ import rehypePrettyCode from "rehype-pretty-code";
 import rehypeSlug from "rehype-slug";
 import remarkGfm from "remark-gfm";
 import { CompileMDXResult } from "next-mdx-remote/rsc";
+import { Question } from "@/components/ui/Question";
+import { Quiz } from "@/components/ui/Quiz";
 
 // Path ke direktori konten
 const contentDirectory = path.join(process.cwd(), "src/content");
@@ -13,6 +15,12 @@ const contentDirectory = path.join(process.cwd(), "src/content");
 // Opsi untuk rehype-pretty-code
 const prettyCodeOptions = {
   theme: "github-dark",
+};
+
+// MDX components untuk digunakan dalam kompilasi
+const mdxComponents = {
+  Question: Question,
+  Quiz: Quiz,
 };
 
 // Interface untuk data kursus dari frontmatter
@@ -102,6 +110,7 @@ export async function getCourseById(courseId: string): Promise<Course | null> {
   
   const mdxSource = await compileMDX({
     source: content,
+    components: mdxComponents,
     options: {
       parseFrontmatter: true,
       mdxOptions: {
@@ -158,6 +167,7 @@ export async function getLessonById(courseId: string, lessonId: string): Promise
   
   const mdxSource = await compileMDX({
     source: content,
+    components: mdxComponents,
     options: {
       parseFrontmatter: true,
       mdxOptions: {

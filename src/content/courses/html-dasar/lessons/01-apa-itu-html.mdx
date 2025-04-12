@@ -1,0 +1,114 @@
+---
+title: Apa Itu HTML?
+description: Pahami konsep dasar HTML sebagai fondasi dari semua halaman web.
+order: 1
+---
+
+
+HTML adalah singkatan dari **HyperText Markup Language**. Tapi jangan takut sama istilah "markup"—ini bukan jurus silat, tapi cara menandai elemen-elemen di halaman web supaya browser tahu harus nampilin apa dan gimana.
+
+Bayangkan HTML itu seperti kerangka rumah. Dia nggak punya warna, furnitur, atau suara, tapi dialah yang nentuin di mana pintu, jendela, dan kamar mandi berada. CSS nanti yang ngecat dan dekor, JavaScript yang bikin rumahnya hidup dan bisa ngomong 😄
+
+## Kenapa HTML Penting?
+
+HTML adalah *pondasi* dari semua website. Bahkan website yang super canggih sekalipun, pada dasarnya tetap butuh HTML untuk:
+
+- Menyusun teks, gambar, dan video
+- Membuat tautan antar halaman
+- Menyusun form input seperti login, pencarian, dll
+
+Tanpa HTML, website itu cuma... angan-angan.
+
+## Struktur Dasar HTML
+
+Berikut ini contoh struktur dasar dokumen HTML:
+
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Halo Dunia</title>
+  </head>
+  <body>
+    <h1>Halo Dunia!</h1>
+    <p>Ini adalah paragraf pertama saya.</p>
+  </body>
+</html>
+```
+
+### Penjelasan:
+
+- `<!DOCTYPE html>` memberi tahu browser bahwa ini adalah dokumen HTML5
+- `<html>` adalah elemen root (akar) dari semua konten HTML
+- `<head>` menyimpan informasi meta, judul halaman, dan link CSS/JS
+- `<body>` berisi semua konten yang akan dilihat pengunjung
+
+## Tag dan Elemen
+
+HTML menggunakan tag seperti `<h1>`, `<p>`, `<a>`, dan lainnya. Tag biasanya punya **pasangan**:
+
+```html
+<p>Ini paragraf</p>
+```
+
+Tag pembuka `<p>` dan tag penutup `</p>`. Ada juga yang **tidak perlu tag penutup**, seperti:
+
+```html
+<br /> <!-- Baris baru -->
+<img src="gambar.jpg" alt="Gambar keren" />
+```
+
+## Komentar dalam HTML
+
+Komentar berguna untuk memberi catatan dalam kode:
+
+```html
+<!-- Ini adalah komentar -->
+<p>Kode di atas tidak akan terlihat di halaman web</p>
+```
+
+## Latihan
+
+1. Buatlah file HTML baru bernama `index.html`
+2. Tulis struktur HTML dasar seperti contoh di atas
+3. Tambahkan satu heading dan satu paragraf tentang diri kamu
+4. Coba buka file-nya di browser
+
+## Kesimpulan
+
+HTML itu seperti tulang dari sebuah halaman web. Dia nggak ribet, tapi punya peran penting banget. Di materi selanjutnya, kita bakal bahas elemen-elemen dasar yang sering dipakai—kayak heading, paragraf, gambar, dan tautan.
+
+Stay tuned dan siap-siap jatuh cinta sama tag-tag aneh ini 😄
+
+## Quiz HTML Dasar
+
+<Quiz
+  id="html-dasar-quiz"
+  title="Quiz HTML Dasar"
+  description="Uji pemahaman Anda tentang struktur dan elemen HTML"
+  questions={[
+    {
+      id: "1",
+      question: "Apa fungsi dari tag `<html>` dalam sebuah dokumen HTML?",
+      options: [
+        "Menentukan bahasa pemrograman",
+        "Menampilkan konten utama",
+        "Sebagai elemen root dari dokumen",
+        "Menampilkan judul halaman"
+      ],
+      correctAnswer: "Sebagai elemen root dari dokumen"
+    },
+    {
+      id: "2",
+      question: "Tag HTML manakah yang digunakan untuk membuat paragraf?",
+      options: [
+        "<para>",
+        "<p>",
+        "<paragraph>",
+        "<text>"
+      ],
+      correctAnswer: "<p>"
+    }
+  ]}
+/>
+

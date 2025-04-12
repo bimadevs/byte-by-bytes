@@ -44,7 +44,7 @@ export default async function LessonPage({ params }: LessonPageProps) {
     <div className="py-12">
       <div className="container mx-auto px-4">
         {/* Breadcrumb navigation */}
-        <div className="flex items-center mb-8 text-sm">
+        <div className="flex items-center mb-8 mt-12 text-sm">
           <Link
             href="/"
             className="text-muted-foreground hover:text-primary flex items-center"

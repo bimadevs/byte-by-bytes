@@ -1,109 +1,137 @@
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, BookOpen, Code, Users, Star } from "lucide-react";
+import courses from "@/data/courses.json";
 
-const featuredCourses = [
-  {
-    id: "javascript-dasar",
-    title: "JavaScript Dasar",
-    description: "Pelajari dasar-dasar JavaScript untuk memulai perjalanan Anda dalam pengembangan web.",
-    image: "/images/courses/javascript.jpg",
-    level: "Pemula",
-    lessons: 12
-  },
-  {
-    id: "react-fundamental",
-    title: "React Fundamental",
-    description: "Membangun aplikasi web interaktif dan dinamis dengan React framework.",
-    image: "/images/courses/react.jpg",
-    level: "Menengah",
-    lessons: 15
-  },
-  {
-    id: "typescript-modern",
-    title: "TypeScript Modern",
-    description: "Tingkatkan proyek JavaScript Anda dengan keamanan tipe statis dan fitur-fitur modern.",
-    image: "/images/courses/typescript.jpg",
-    level: "Menengah",
-    lessons: 10
-  }
-];
+// Helper untuk mendapatkan kursus unggulan
+function getFeaturedCourses() {
+  return courses.courses.filter(course => course.featured === true);
+}
 
 export default function Home() {
+  // Mendapatkan daftar kursus unggulan
+  const featuredCourses = getFeaturedCourses();
+  
   return (
     <div className="flex flex-col min-h-screen">
-      {/* Hero Section */}
-      <section className="py-20 md:py-32 px-4 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-900/20 to-black/50 z-0"></div>
-        <div
-          className="absolute inset-0 z-0 opacity-20"
-          style={{
-            backgroundImage: "url(/images/grid-pattern.svg)",
-            backgroundSize: "cover",
-          }}
-        ></div>
-        <div className="container mx-auto relative z-10">
-          <div className="flex flex-col items-center text-center max-w-3xl mx-auto">
-            <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-blue-600">
-              Kuasai Koding dengan Kursus Interaktif
+      {/* Hero Section - Modern Design */}
+      <section className="relative overflow-hidden bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 py-24 md:py-32">
+        {/* Background decorative elements */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute -top-40 -right-40 h-96 w-96 rounded-full bg-blue-500/20 blur-3xl"></div>
+          <div className="absolute top-1/3 -left-20 h-72 w-72 rounded-full bg-indigo-500/20 blur-3xl"></div>
+          <div className="absolute -bottom-40 left-1/2 h-80 w-80 -translate-x-1/2 rounded-full bg-sky-500/20 blur-3xl"></div>
+          <div className="absolute inset-0 bg-grid-white/[0.05] bg-[length:40px_40px]"></div>
+        </div>
+        
+        <div className="container relative z-10 mx-auto px-6">
+          <div className="mx-auto max-w-4xl text-center">
+            <h1 className="mb-6 bg-gradient-to-r from-blue-200 via-blue-400 to-indigo-300 bg-clip-text text-5xl font-bold leading-tight tracking-tight text-transparent md:text-6xl lg:text-7xl">
+              Kuasai Koding Dengan <span className="relative inline-block">Presisi<span className="absolute -bottom-2 left-0 h-1 w-full bg-gradient-to-r from-blue-400 to-indigo-500"></span></span>
             </h1>
-            <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl">
-              Platform belajar coding modern dengan materi terstruktur, proyek praktis, dan komunitas pendukung untuk semua level kemampuan.
+            <p className="mb-10 text-lg text-slate-300 md:text-xl">
+              Platform belajar coding premium dengan materi terstruktur, proyek praktis, dan komunitas pendukung untuk mengembangkan karir Anda.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4">
+            <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
               <Link
                 href="/kursus"
-                className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-3 rounded-md font-medium flex items-center justify-center gap-2 transition-colors"
+                className="group relative inline-flex w-full items-center justify-center overflow-hidden rounded-full bg-gradient-to-r from-blue-500 to-indigo-600 px-8 py-4 font-medium text-white transition duration-300 ease-out sm:w-auto"
               >
-                Jelajahi Kursus
-                <ArrowRight size={16} />
+                <span className="absolute inset-0 flex h-full w-full -translate-x-full items-center justify-center bg-gradient-to-r from-indigo-600 to-blue-500 transition-all duration-300 ease-out group-hover:translate-x-0"></span>
+                <span className="relative flex items-center gap-2">
+                  Jelajahi Kursus <ArrowRight size={18} className="transition-transform duration-300 group-hover:translate-x-1" />
+                </span>
               </Link>
               <Link
                 href="/tentang"
-                className="bg-secondary hover:bg-secondary/80 text-secondary-foreground px-8 py-3 rounded-md font-medium transition-colors"
+                className="inline-flex w-full items-center justify-center rounded-full border border-slate-700 bg-slate-800/50 px-8 py-4 font-medium text-slate-200 backdrop-blur-sm transition-colors hover:bg-slate-800 hover:text-white sm:w-auto"
               >
                 Tentang Kami
               </Link>
             </div>
           </div>
+          
+          {/* Stats */}
+          <div className="mx-auto mt-20 grid max-w-4xl grid-cols-2 gap-8 border-t border-slate-800 pt-10 md:grid-cols-4">
+            <div className="text-center">
+              <div className="text-3xl font-bold text-white">120+</div>
+              <div className="mt-2 text-sm text-slate-400">Pelajaran</div>
+            </div>
+            <div className="text-center">
+              <div className="text-3xl font-bold text-white">15+</div>
+              <div className="mt-2 text-sm text-slate-400">Kursus</div>
+            </div>
+            <div className="text-center">
+              <div className="text-3xl font-bold text-white">1200+</div>
+              <div className="mt-2 text-sm text-slate-400">Siswa</div>
+            </div>
+            <div className="text-center">
+              <div className="text-3xl font-bold text-white">4.9</div>
+              <div className="mt-2 text-sm text-slate-400">Rating</div>
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* Featured Courses */}
-      <section className="py-16 bg-muted/50">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-col items-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">Kursus Unggulan</h2>
-            <p className="text-muted-foreground text-center max-w-2xl">
-              Mulai perjalanan coding Anda dengan kursus-kursus pilihan yang dirancang untuk membantu Anda menguasai keterampilan yang paling dicari saat ini.
+      {/* Featured Courses - Premium Design */}
+      <section className="bg-slate-50 py-24 dark:bg-slate-900">
+        <div className="container mx-auto px-6">
+          <div className="mb-16 text-center">
+            <div className="mb-3 inline-block rounded-full bg-blue-100 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-blue-800 dark:bg-blue-900/30 dark:text-blue-400">
+              Kursus Unggulan
+            </div>
+            <h2 className="mb-4 text-3xl font-bold tracking-tight text-slate-900 dark:text-white md:text-4xl">
+              Mulai Perjalanan Coding Anda
+            </h2>
+            <p className="mx-auto max-w-2xl text-slate-600 dark:text-slate-400">
+              Kursus-kursus terbaik kami dirancang untuk membantu Anda menguasai keterampilan yang paling dicari dalam industri teknologi saat ini.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 gap-x-8 gap-y-14 md:grid-cols-2 lg:grid-cols-3">
             {featuredCourses.map((course) => (
-              <Link key={course.id} href={`/kursus/${course.id}`}>
-                <div className="bg-card rounded-lg overflow-hidden border hover:shadow-lg transition-all duration-300 h-full flex flex-col">
-                  <div className="aspect-video relative bg-muted">
-                    <div className="absolute inset-0 flex items-center justify-center bg-blue-900/20">
-                      <span className="text-white font-bold">{course.title}</span>
-                    </div>
+              <Link key={course.id} href={`/kursus/${course.id}`} className="group">
+                <div className="relative h-full overflow-hidden rounded-2xl bg-white shadow-xl shadow-slate-200 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl dark:bg-slate-800/80 dark:shadow-slate-800/20">
+                  <div className="aspect-video overflow-hidden">
+                    {course.image ? (
+          <Image
+                        src={course.image} 
+                        alt={course.title} 
+                        width={600} 
+                        height={340} 
+                        className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105" 
+                      />
+                    ) : (
+                      <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-blue-900 to-indigo-700">
+                        <Code size={60} className="text-white opacity-40" />
+                      </div>
+                    )}
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
                   </div>
-                  <div className="p-6 flex-1 flex flex-col">
-                    <div className="flex items-center gap-2 mb-2">
-                      <span className="text-xs bg-primary/10 text-primary px-2 py-1 rounded-full">
+                  
+                  {/* Course details with premium styling */}
+                  <div className="p-7">
+                    <div className="mb-3 flex flex-wrap gap-2">
+                      <span className="inline-flex items-center rounded-full bg-blue-100 px-2.5 py-0.5 text-xs font-medium text-blue-800 dark:bg-blue-900/30 dark:text-blue-300">
                         {course.level}
                       </span>
-                      <span className="text-xs bg-muted text-muted-foreground px-2 py-1 rounded-full">
+                      <span className="inline-flex items-center rounded-full bg-slate-100 px-2.5 py-0.5 text-xs font-medium text-slate-800 dark:bg-slate-700 dark:text-slate-300">
                         {course.lessons} Pelajaran
                       </span>
+                      <span className="inline-flex items-center rounded-full bg-indigo-100 px-2.5 py-0.5 text-xs font-medium text-indigo-800 dark:bg-indigo-900/30 dark:text-indigo-300">
+                        {course.category}
+                      </span>
                     </div>
-                    <h3 className="text-xl font-bold mb-2">{course.title}</h3>
-                    <p className="text-muted-foreground text-sm mb-4 flex-1">
+                    
+                    <h3 className="mb-3 text-xl font-bold text-slate-900 dark:text-white">{course.title}</h3>
+                    
+                    <p className="mb-4 text-sm text-slate-600 dark:text-slate-400">
                       {course.description}
                     </p>
-                    <div className="flex items-center text-primary font-medium text-sm">
+                    
+                    <div className="mt-auto flex items-center font-medium text-blue-600 transition-colors group-hover:text-blue-500 dark:text-blue-400 dark:group-hover:text-blue-300">
                       Lihat Kursus
-                      <ArrowRight size={14} className="ml-2" />
+                      <ArrowRight size={16} className="ml-2 transition-transform duration-300 group-hover:translate-x-1" />
                     </div>
                   </div>
                 </div>
@@ -111,63 +139,97 @@ export default function Home() {
             ))}
           </div>
 
-          <div className="flex justify-center mt-12">
+          <div className="mt-16 flex justify-center">
             <Link
               href="/kursus"
-              className="flex items-center gap-2 text-primary hover:text-primary/80 font-medium transition-colors"
+              className="group inline-flex items-center rounded-full border border-slate-300 bg-white px-6 py-3 font-medium text-slate-900 transition-colors hover:border-blue-600 hover:text-blue-600 dark:border-slate-700 dark:bg-slate-800 dark:text-white dark:hover:border-blue-500 dark:hover:text-blue-400"
             >
               Lihat Semua Kursus
-              <ArrowRight size={16} />
+              <ArrowRight size={18} className="ml-2 transition-transform duration-300 group-hover:translate-x-1" />
             </Link>
           </div>
         </div>
       </section>
 
-      {/* Features Section */}
-      <section className="py-16">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-col items-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">Mengapa Memilih ByteByByte?</h2>
-            <p className="text-muted-foreground text-center max-w-2xl">
-              Platform kami dirancang untuk memberikan pengalaman belajar yang optimal dengan fitur-fitur yang membantu Anda menguasai coding.
+      {/* Features Section - Elegant Design */}
+      <section className="py-24">
+        <div className="container mx-auto px-6">
+          <div className="mb-16 text-center">
+            <div className="mb-3 inline-block rounded-full bg-blue-100 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-blue-800 dark:bg-blue-900/30 dark:text-blue-400">
+              Keunggulan Kami
+            </div>
+            <h2 className="mb-4 text-3xl font-bold tracking-tight text-slate-900 dark:text-white md:text-4xl">
+              Mengapa Memilih ByteByByte?
+            </h2>
+            <p className="mx-auto max-w-2xl text-slate-600 dark:text-slate-400">
+              Platform kami dirancang dengan fokus pada pengalaman belajar yang optimal, memberikan Anda semua yang Anda butuhkan untuk sukses.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div className="bg-card rounded-lg p-6 border">
-              <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center mb-4">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-blue-600 dark:text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                </svg>
+          <div className="mx-auto grid max-w-5xl grid-cols-1 gap-10 md:grid-cols-3">
+            <div className="group relative rounded-2xl border border-slate-200 bg-white p-8 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl dark:border-slate-800 dark:bg-slate-900 dark:hover:shadow-slate-800/30">
+              <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 text-white shadow-lg shadow-blue-500/20">
+                <BookOpen size={24} />
               </div>
-              <h3 className="text-xl font-bold mb-2">Materi Terstruktur</h3>
-              <p className="text-muted-foreground">
-                Materi pembelajaran terstruktur dan mudah dipahami dengan contoh praktis dan latihan untuk memperkuat pemahaman.
+              <h3 className="mb-3 text-xl font-bold text-slate-900 dark:text-white">Materi Terstruktur</h3>
+              <p className="text-slate-600 dark:text-slate-400">
+                Kurikulum yang dikembangkan oleh profesional industri dengan konten praktis dan strategi pembelajaran yang efektif.
               </p>
+              <div className="absolute inset-x-0 bottom-0 h-0.5 bg-gradient-to-r from-blue-500 to-indigo-600 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
             </div>
-
-            <div className="bg-card rounded-lg p-6 border">
-              <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center mb-4">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-blue-600 dark:text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                </svg>
+            
+            <div className="group relative rounded-2xl border border-slate-200 bg-white p-8 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl dark:border-slate-800 dark:bg-slate-900 dark:hover:shadow-slate-800/30">
+              <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 text-white shadow-lg shadow-indigo-500/20">
+                <Code size={24} />
               </div>
-              <h3 className="text-xl font-bold mb-2">Proyek Praktis</h3>
-              <p className="text-muted-foreground">
-                Belajar dengan membangun proyek nyata yang akan memperkuat portofolio dan mempersiapkan Anda untuk dunia kerja.
+              <h3 className="mb-3 text-xl font-bold text-slate-900 dark:text-white">Proyek Praktis</h3>
+              <p className="text-slate-600 dark:text-slate-400">
+                Perkuat pembelajaran Anda dengan membangun proyek dunia nyata yang akan meningkatkan portofolio dan keterampilan Anda.
               </p>
+              <div className="absolute inset-x-0 bottom-0 h-0.5 bg-gradient-to-r from-indigo-500 to-purple-600 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
             </div>
-
-            <div className="bg-card rounded-lg p-6 border">
-              <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center mb-4">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-blue-600 dark:text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                </svg>
+            
+            <div className="group relative rounded-2xl border border-slate-200 bg-white p-8 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl dark:border-slate-800 dark:bg-slate-900 dark:hover:shadow-slate-800/30">
+              <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-xl bg-gradient-to-br from-sky-500 to-blue-600 text-white shadow-lg shadow-sky-500/20">
+                <Users size={24} />
               </div>
-              <h3 className="text-xl font-bold mb-2">Komunitas Pendukung</h3>
-              <p className="text-muted-foreground">
-                Bergabunglah dengan komunitas developer yang akan membantu Anda dalam proses belajar dan memecahkan masalah.
+              <h3 className="mb-3 text-xl font-bold text-slate-900 dark:text-white">Komunitas Pendukung</h3>
+              <p className="text-slate-600 dark:text-slate-400">
+                Terhubung dengan mentor berpengalaman dan sesama pelajar dalam komunitas yang aktif mendukung perjalanan belajar Anda.
               </p>
+              <div className="absolute inset-x-0 bottom-0 h-0.5 bg-gradient-to-r from-sky-500 to-blue-600 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="relative overflow-hidden bg-slate-900 py-20">
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute -top-40 -right-40 h-96 w-96 rounded-full bg-blue-500/10 blur-3xl"></div>
+          <div className="absolute top-1/3 -left-20 h-72 w-72 rounded-full bg-indigo-500/10 blur-3xl"></div>
+        </div>
+        
+        <div className="container relative z-10 mx-auto px-6">
+          <div className="mx-auto max-w-4xl rounded-3xl bg-gradient-to-r from-blue-600 to-indigo-700 p-1.5 shadow-2xl">
+            <div className="rounded-[calc(1.5rem-1.5px)] bg-white p-8 dark:bg-slate-900 md:p-12">
+              <div className="mx-auto max-w-2xl text-center">
+                <h2 className="mb-4 text-3xl font-bold tracking-tight text-slate-900 dark:text-white">
+                  Siap Memulai Perjalanan Coding Anda?
+                </h2>
+                <p className="mb-8 text-slate-600 dark:text-slate-400">
+                  Bergabunglah dengan ribuan siswa yang telah mengembangkan keterampilan baru dan memajukan karir mereka.
+                </p>
+                <Link
+                  href="/kursus"
+                  className="group relative inline-flex items-center justify-center overflow-hidden rounded-full bg-gradient-to-r from-blue-500 to-indigo-600 px-8 py-4 font-medium text-white transition duration-300 ease-out"
+                >
+                  <span className="absolute inset-0 flex h-full w-full -translate-x-full items-center justify-center bg-gradient-to-r from-indigo-600 to-blue-500 transition-all duration-300 ease-out group-hover:translate-x-0"></span>
+                  <span className="relative flex items-center gap-2">
+                    Mulai Belajar Sekarang <ArrowRight size={18} className="transition-transform duration-300 group-hover:translate-x-1" />
+                  </span>
+                </Link>
+              </div>
             </div>
           </div>
         </div>

@@ -1,49 +1,164 @@
 "use client";
 
+import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
-import { useTheme } from "@/components/theme-provider";
-import { MoonIcon, SunIcon } from "lucide-react";
+import { usePathname } from "next/navigation";
+import { Menu, X, BookOpen, Home, Info } from "lucide-react";
 
 export function Header() {
-  const { theme, setTheme } = useTheme();
+  const pathname = usePathname();
+  const [scrolled, setScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const handleScroll = useCallback(() => {
+    if (window.scrollY > 10) {
+      setScrolled(true);
+    } else {
+      setScrolled(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [handleScroll]);
+
+  // Reset mobile menu when route changes
+  useEffect(() => {
+    setMobileMenuOpen(false);
+  }, [pathname]);
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-16 items-center justify-between px-4 md:px-8">
-        <div className="flex items-center gap-2">
-          <Link href="/" className="flex items-center space-x-2">
-            <span className="text-2xl font-bold bg-gradient-to-r from-blue-500 to-blue-700 bg-clip-text text-transparent">
-              ByteByByte
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        scrolled
+          ? "bg-slate-900/90 backdrop-blur-md shadow-lg border-b border-slate-800/50"
+          : "bg-transparent"
+      }`}
+    >
+      <div className="container mx-auto px-6 py-4">
+        <div className="relative flex items-center justify-between">
+          {/* Logo */}
+          <Link href="/" className="flex items-center group">
+            <span className="text-2xl font-bold transition-colors duration-300 text-white">
+              Byte<span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent relative group-hover:after:opacity-100 after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px] after:bg-gradient-to-r after:from-blue-600 after:to-indigo-600 after:origin-left after:scale-x-0 after:opacity-0 after:transition-all after:duration-300 group-hover:after:scale-x-100">ByByte</span>
             </span>
           </Link>
-        </div>
-        <nav className="flex items-center gap-6">
-          <div className="hidden md:flex items-center gap-6">
-            <Link 
-              href="/kursus" 
-              className="text-sm font-medium hover:text-blue-500 transition-colors"
+
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex items-center space-x-8">
+            <Link
+              href="/"
+              className={`transition-all duration-300 font-medium relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px] after:bg-gradient-to-r after:from-blue-500 after:to-indigo-500 after:origin-left after:scale-x-0 after:transition-transform after:duration-300 hover:after:scale-x-100 ${
+                pathname === "/"
+                  ? "text-indigo-400 after:scale-x-100"
+                  : `${scrolled 
+                      ? "text-slate-300 hover:text-indigo-400" 
+                      : "text-white hover:text-indigo-400"
+                    }`
+              }`}
             >
-              Semua Kursus
+              Beranda
             </Link>
-            <Link 
-              href="/tentang" 
-              className="text-sm font-medium hover:text-blue-500 transition-colors"
+            <Link
+              href="/kursus"
+              className={`transition-all duration-300 font-medium relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px] after:bg-gradient-to-r after:from-blue-500 after:to-indigo-500 after:origin-left after:scale-x-0 after:transition-transform after:duration-300 hover:after:scale-x-100 ${
+                pathname === "/kursus" || pathname.startsWith("/kursus/")
+                  ? "text-indigo-400 after:scale-x-100"
+                  : `${scrolled 
+                      ? "text-slate-300 hover:text-indigo-400" 
+                      : "text-white hover:text-indigo-400"
+                    }`
+              }`}
             >
-              Tentang Kami
+              Kursus
             </Link>
+            <Link
+              href="/tentang"
+              className={`transition-all duration-300 font-medium relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px] after:bg-gradient-to-r after:from-blue-500 after:to-indigo-500 after:origin-left after:scale-x-0 after:transition-transform after:duration-300 hover:after:scale-x-100 ${
+                pathname === "/tentang"
+                  ? "text-indigo-400 after:scale-x-100"
+                  : `${scrolled 
+                      ? "text-slate-300 hover:text-indigo-400" 
+                      : "text-white hover:text-indigo-400"
+                    }`
+              }`}
+            >
+              Tentang
+            </Link>
+          </nav>
+
+          {/* Mobile Menu Button */}
+          <div className="flex items-center md:hidden">
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className={`p-2 rounded-lg transition-all duration-300 ${
+                scrolled
+                  ? "bg-slate-800 hover:bg-slate-700 hover:shadow-md"
+                  : "bg-slate-800/40 hover:bg-slate-800/60 backdrop-blur-sm"
+              }`}
+              aria-label="Open menu"
+            >
+              {mobileMenuOpen ? (
+                <X className="w-6 h-6 transition-transform duration-300 rotate-90 text-white" />
+              ) : (
+                <Menu className="w-6 h-6 transition-transform duration-300 text-white" />
+              )}
+            </button>
           </div>
-          <button
-            className="inline-flex items-center justify-center rounded-md p-2.5 text-sm font-medium hover:bg-accent hover:text-accent-foreground"
-            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+
+          {/* Mobile Menu */}
+          <div
+            className={`fixed inset-x-0 top-[73px] z-50 transform p-4 transition-all duration-300 md:hidden ${
+              mobileMenuOpen
+                ? "opacity-100 translate-y-0"
+                : "opacity-0 -translate-y-10 pointer-events-none"
+            }`}
           >
-            {theme === "dark" ? (
-              <SunIcon className="h-5 w-5" />
-            ) : (
-              <MoonIcon className="h-5 w-5" />
-            )}
-            <span className="sr-only">Toggle tema</span>
-          </button>
-        </nav>
+            <div className="rounded-2xl bg-slate-900/95 backdrop-blur-lg p-6 shadow-xl ring-1 ring-white/10 mx-2">
+              <nav className="space-y-5">
+                <Link
+                  href="/"
+                  className={`flex items-center space-x-2 text-base font-medium transition-all duration-300 p-2 rounded-lg ${
+                    pathname === "/" 
+                      ? "text-indigo-400 bg-indigo-900/20" 
+                      : "text-slate-200 hover:text-indigo-400 hover:bg-slate-800/60"
+                  }`}
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  <Home className="w-5 h-5" />
+                  <span>Beranda</span>
+                </Link>
+                <Link
+                  href="/kursus"
+                  className={`flex items-center space-x-2 text-base font-medium transition-all duration-300 p-2 rounded-lg ${
+                    pathname === "/kursus" || pathname.startsWith("/kursus/")
+                      ? "text-indigo-400 bg-indigo-900/20" 
+                      : "text-slate-200 hover:text-indigo-400 hover:bg-slate-800/60"
+                  }`}
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  <BookOpen className="w-5 h-5" />
+                  <span>Kursus</span>
+                </Link>
+                <Link
+                  href="/tentang"
+                  className={`flex items-center space-x-2 text-base font-medium transition-all duration-300 p-2 rounded-lg ${
+                    pathname === "/tentang"
+                      ? "text-indigo-400 bg-indigo-900/20" 
+                      : "text-slate-200 hover:text-indigo-400 hover:bg-slate-800/60"
+                  }`}
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  <Info className="w-5 h-5" />
+                  <span>Tentang</span>
+                </Link>
+              </nav>
+            </div>
+          </div>
+        </div>
       </div>
     </header>
   );

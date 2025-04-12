@@ -1,0 +1,178 @@
+---
+title: Elemen HTML Dasar
+description: Pelajari elemen-elemen HTML paling sering digunakan seperti heading, paragraf, gambar, dan tautan.
+order: 2
+---
+
+
+Setelah tahu apa itu HTML, sekarang saatnya kenalan lebih dekat sama elemen-elemen dasarnya. Ini ibarat kamu kenalan sama anggota keluarga besar HTML. Ada yang cerewet kayak `<h1>`, ada yang simpel kayak `<br>`, dan ada juga yang fleksibel kayak `<div>`.
+
+## Heading (Judul)
+
+Heading dipakai untuk memberi judul atau subjudul. HTML punya 6 level heading:
+
+```html
+<h1>Judul Utama</h1>
+<h2>Subjudul</h2>
+<h3>Sub-subjudul</h3>
+... sampai <h6>
+```
+
+Semakin besar angkanya, semakin kecil ukurannya.
+
+## Paragraf
+
+Gunakan tag `<p>` untuk membuat paragraf:
+
+```html
+<p>Ini adalah satu paragraf teks.</p>
+```
+
+## Gambar (Image)
+
+Untuk menampilkan gambar, gunakan tag `<img>`:
+
+```html
+<img src="/images/kucing.jpg" alt="Foto kucing lucu" />
+```
+
+- `src` = lokasi file gambar
+- `alt` = deskripsi gambar (untuk aksesibilitas dan SEO)
+
+## Tautan (Link)
+
+HTML pakai tag `<a>` (anchor) untuk membuat link:
+
+```html
+<a href="https://google.com">Kunjungi Google</a>
+```
+
+- `href` = alamat tujuan link
+
+## Garis Horizontal dan Baris Baru
+
+- `<hr />` = garis horizontal, misalnya buat pemisah antar bagian
+- `<br />` = baris baru (kayak pencet Enter)
+
+```html
+<p>Halo<br />Dunia!</p>
+<hr />
+```
+
+## Daftar (List)
+
+### Ordered List (Berurutan)
+```html
+<ol>
+  <li>Bangun tidur</li>
+  <li>Mandi</li>
+  <li>Ngoding</li>
+</ol>
+```
+
+### Unordered List (Tanda titik)
+```html
+<ul>
+  <li>Kopi</li>
+  <li>Teh</li>
+  <li>Air putih</li>
+</ul>
+```
+
+## Div dan Span
+
+- `<div>` digunakan sebagai pembungkus blok
+- `<span>` untuk teks dalam satu baris (inline)
+
+```html
+<div>
+  <p>Ini dibungkus dalam div.</p>
+</div>
+
+<p>Ini <span style="color:red">kata penting</span> dalam kalimat.</p>
+```
+
+## Latihan
+
+1. Buat file `latihan.html`
+2. Tambahkan heading, paragraf, gambar, dan tautan ke situs favoritmu
+3. Tambahkan daftar kegiatan harianmu
+4. Coba buat garis horizontal sebagai pemisah
+
+## Kesimpulan
+
+Elemen dasar HTML ini adalah blok bangunan utama dari setiap halaman web. Dengan menguasainya, kamu sudah bisa bikin halaman sederhana yang rapi dan informatif. Di materi selanjutnya, kita akan bahas form dan input HTML—bagian penting dari interaksi user!
+
+## Quiz Elemen HTML Dasar
+
+<Quiz
+  id="elemen-html-dasar-quiz"
+  title="Quiz Elemen HTML Dasar"
+  description="Uji pemahaman Anda tentang elemen-elemen HTML umum"
+  questions={[
+    {
+      id: "1",
+      question: "Tag HTML mana yang digunakan untuk membuat paragraf?",
+      options: ["<h1>", "<p>", "<a>", "<div>"],
+      correctAnswer: "<p>"
+    },
+    {
+      id: "2",
+      question: "Apa fungsi dari atribut `alt` dalam tag `<img>`?",
+      options: [
+        "Menentukan ukuran gambar",
+        "Menambahkan animasi",
+        "Deskripsi gambar untuk aksesibilitas",
+        "Mengatur posisi gambar"
+      ],
+      correctAnswer: "Deskripsi gambar untuk aksesibilitas"
+    },
+    {
+      id: "3",
+      question: "Tag HTML manakah yang digunakan untuk membuat tautan atau hyperlink?",
+      options: ["<link>", "<a>", "<href>", "<url>"],
+      correctAnswer: "<a>"
+    },
+    {
+      id: "4",
+      question: "Apa perbedaan antara tag `<ol>` dan `<ul>`?",
+      options: [
+        "<ol> untuk teks tebal, <ul> untuk miring",
+        "<ol> urutan angka, <ul> tanda titik",
+        "<ol> hanya untuk paragraf",
+        "Tidak ada perbedaan"
+      ],
+      correctAnswer: "<ol> urutan angka, <ul> tanda titik"
+    },
+    {
+      id: "5",
+      question: "Tag mana yang digunakan untuk membuat baris baru di dalam paragraf?",
+      options: ["<break>", "<br>", "<line>", "<b>"],
+      correctAnswer: "<br>"
+    },
+    {
+      id: "6",
+      question: "Tag apa yang digunakan untuk membungkus beberapa elemen dalam satu blok besar?",
+      options: ["<block>", "<div>", "<span>", "<section>"],
+      correctAnswer: "<div>"
+    },
+    {
+      id: "7",
+      question: "Apa hasil dari kode `<h2>Subjudul</h2>`?",
+      options: [
+        "Menampilkan teks tebal",
+        "Menampilkan subjudul dengan ukuran lebih kecil dari h1",
+        "Membuat tautan",
+        "Menambahkan gambar"
+      ],
+      correctAnswer: "Menampilkan subjudul dengan ukuran lebih kecil dari h1"
+    },
+    {
+      id: "8",
+      question: "Tag HTML mana yang cocok digunakan untuk teks pendek yang ingin diberi style khusus dalam kalimat?",
+      options: ["<div>", "<span>", "<section>", "<article>"],
+      correctAnswer: "<span>"
+    }
+  ]}
+/>
+

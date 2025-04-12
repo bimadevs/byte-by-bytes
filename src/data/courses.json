@@ -1,10 +1,20 @@
 {
   "courses": [
     {
+      "id": "html-dasar",
+      "title": "HTML Dasar",
+      "description": "Pelajari dasar-dasar HTML untuk membangun fondasi yang kuat dalam dunia pengembangan web.",
+      "image": "/images/courses/html-logo.png",
+      "level": "Pemula",
+      "lessons": 5,
+      "category": "Web Development",
+      "featured": true
+    },
+    {
       "id": "javascript-dasar",
       "title": "JavaScript Dasar",
       "description": "Pelajari dasar-dasar JavaScript untuk memulai perjalanan Anda dalam pengembangan web.",
-      "image": "/images/courses/javascript.jpg",
+      "image": "/images/courses/javascript-logo.png",
       "level": "Pemula",
       "lessons": 12,
       "category": "Web Development",

@@ -155,3 +155,56 @@ let booleanValue4 = Boolean("Hello"); // true
 ## Kesimpulan
 
 Variabel dan tipe data adalah konsep fundamental dalam JavaScript. Dengan memahami cara menyimpan dan memanipulasi data, Anda dapat mulai membangun program yang lebih kompleks. Pada pelajaran berikutnya, kita akan mempelajari tentang operator dan ekspresi dalam JavaScript. 
+
+
+## Hoisting
+
+Hoisting adalah perilaku JavaScript yang "mengangkat" deklarasi variabel dan fungsi ke atas scope. Ini berarti:
+
+- Variabel yang dideklarasikan dengan `var` "diangkat" ke atas, tapi tidak inisialisasinya
+- Variabel yang dideklarasikan dengan `let` dan `const` tidak di-hoisting seperti `var`
+
+```javascript
+console.log(x); // Output: undefined (bukan error)
+var x = 5;
+
+console.log(y); // Error: Cannot access 'y' before initialization
+let y = 10;
+```
+
+```javascript
+console.log(x);
+var x = 5;
+```
+
+## Quiz Variabel dan Tipe Data
+
+<Quiz
+  id="variabel-dan-tipe-data-quiz"
+  title="Quiz Variabel dan Tipe Data JavaScript"
+  description="Uji pemahaman Anda tentang variabel dan tipe data dalam JavaScript"
+  questions={[
+    {
+      id: "1",
+      question: "Manakah cara yang benar untuk mendeklarasikan variabel yang nilainya tidak akan berubah?",
+      options: [
+        "var namaVariabel = nilai;",
+        "let namaVariabel = nilai;",
+        "const namaVariabel = nilai;",
+        "static namaVariabel = nilai;"
+      ],
+      correctAnswer: "const namaVariabel = nilai;"
+    },
+    {
+      id: "2",
+      question: "Bagaimana cara mengakses elemen kedua dari array buah = ['Apel', 'Mangga', 'Jeruk']?",
+      options: [
+        "buah[0]",
+        "buah[1]",
+        "buah[2]",
+        "buah.1"
+      ],
+      correctAnswer: "buah[1]"
+    }
+  ]}
+/> 

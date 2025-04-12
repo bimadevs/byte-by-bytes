@@ -1,0 +1,194 @@
+---
+title: Form dan Input di HTML
+description: Pelajari cara membuat formulir interaktif menggunakan elemen form dan input dalam HTML
+order: 3
+---
+
+
+Form adalah salah satu komponen paling penting di website, terutama jika kamu ingin mendapatkan data dari pengguna. Di pelajaran ini, kita akan membahas cara membuat form dan berbagai jenis input di HTML.
+
+## Elemen `<form>`
+
+Semua elemen input berada di dalam tag `<form>`:
+
+```html
+<form action="/submit" method="post">
+  <!-- input akan diletakkan di sini -->
+</form>
+```
+
+- `action` menentukan ke mana data dikirim saat form disubmit
+- `method` bisa berupa `get` atau `post`
+
+## Elemen Input Dasar
+
+### Text Input
+
+```html
+<input type="text" name="nama" placeholder="Masukkan nama" />
+```
+
+### Password Input
+
+```html
+<input type="password" name="password" placeholder="Masukkan kata sandi" />
+```
+
+### Email Input
+
+```html
+<input type="email" name="email" placeholder="Masukkan email" />
+```
+
+### Number Input
+
+```html
+<input type="number" name="usia" />
+```
+
+### Tanggal
+
+```html
+<input type="date" name="tanggal_lahir" />
+```
+
+### Tombol Submit
+
+```html
+<button type="submit">Kirim</button>
+```
+
+## Elemen Form Lainnya
+
+### Label
+
+Label digunakan untuk memberi tahu pengguna input apa yang sedang diisi:
+
+```html
+<label for="nama">Nama:</label>
+<input type="text" id="nama" name="nama" />
+```
+
+### Textarea (Teks Panjang)
+
+```html
+<textarea name="pesan" rows="4" cols="50"></textarea>
+```
+
+### Select (Dropdown)
+
+```html
+<select name="jurusan">
+  <option value="informatika">Informatika</option>
+  <option value="sistem">Sistem Informasi</option>
+  <option value="elektro">Teknik Elektro</option>
+</select>
+```
+
+### Checkbox
+
+```html
+<input type="checkbox" name="hobi" value="membaca" /> Membaca
+<input type="checkbox" name="hobi" value="ngoding" /> Ngoding
+```
+
+### Radio Button
+
+```html
+<input type="radio" name="gender" value="laki" /> Laki-laki
+<input type="radio" name="gender" value="perempuan" /> Perempuan
+```
+
+## Validasi Dasar HTML
+
+- `required` → wajib diisi
+- `min` dan `max` → batas nilai
+- `maxlength` → panjang maksimal
+
+```html
+<input type="text" name="username" required maxlength="15" />
+```
+
+## Latihan
+
+1. Buatlah form sederhana dengan input nama, email, dan pesan.
+2. Tambahkan label untuk setiap input.
+3. Gunakan tombol submit dan pastikan semua input memiliki atribut `required`.
+
+## Kesimpulan
+
+Form dan input adalah cara utama untuk berinteraksi dengan pengguna di web. Dengan memahami elemen ini, kamu bisa mulai membangun fitur interaktif seperti login, pendaftaran, dan pencarian.
+
+## Quiz Form dan Input HTML
+
+<Quiz
+  id="form-dan-input-html-quiz"
+  title="Quiz Form dan Input HTML"
+  description="Uji pemahaman kamu tentang elemen form dan input di HTML"
+  questions={[
+    {
+      id: "1",
+      question: "Tag HTML apa yang digunakan untuk membuat form?",
+      options: ["<form>", "<input>", "<textarea>", "<label>"],
+      correctAnswer: "<form>"
+    },
+    {
+      id: "2",
+      question: "Apa fungsi dari atribut `action` dalam elemen form?",
+      options: [
+        "Menentukan warna form",
+        "Menentukan tujuan data dikirim",
+        "Menentukan panjang input",
+        "Menentukan apakah input wajib diisi"
+      ],
+      correctAnswer: "Menentukan tujuan data dikirim"
+    },
+    {
+      id: "3",
+      question: "Apa tipe input yang digunakan untuk memasukkan email?",
+      options: ["text", "email", "password", "submit"],
+      correctAnswer: "email"
+    },
+    {
+      id: "4",
+      question: "Apa perbedaan antara checkbox dan radio button?",
+      options: [
+        "Checkbox hanya untuk angka, radio hanya untuk teks",
+        "Checkbox untuk memilih satu opsi, radio untuk banyak",
+        "Checkbox bisa memilih banyak, radio hanya satu",
+        "Tidak ada perbedaan"
+      ],
+      correctAnswer: "Checkbox bisa memilih banyak, radio hanya satu"
+    },
+    {
+      id: "5",
+      question: "Atribut apa yang digunakan agar input wajib diisi?",
+      options: ["required", "mandatory", "must", "fill"],
+      correctAnswer: "required"
+    },
+    {
+      id: "6",
+      question: "Elemen apa yang digunakan untuk membuat dropdown list?",
+      options: ["<dropdown>", "<select>", "<input>", "<option>"],
+      correctAnswer: "<select>"
+    },
+    {
+      id: "7",
+      question: "Bagaimana cara memberi label pada input agar lebih ramah pengguna?",
+      options: [
+        "Menggunakan <div>",
+        "Menggunakan <label> dengan atribut for",
+        "Menambahkan placeholder",
+        "Menambahkan komentar HTML"
+      ],
+      correctAnswer: "Menggunakan <label> dengan atribut for"
+    },
+    {
+      id: "8",
+      question: "Tipe input apa yang digunakan untuk angka saja?",
+      options: ["text", "number", "range", "integer"],
+      correctAnswer: "number"
+    }
+  ]}
+/>
+
