@@ -1,5 +1,8 @@
+"use client";
+
 import Link from "next/link";
 import { ArrowRight, GithubIcon, TwitterIcon, LinkedinIcon, MailIcon, Instagram } from "lucide-react";
+import { motion } from "framer-motion";
 
 export function Footer() {
   return (
@@ -7,15 +10,30 @@ export function Footer() {
       <div className="container mx-auto px-6 pt-16 pb-8">
         <div className="grid grid-cols-1 gap-12 md:grid-cols-4 lg:grid-cols-12 lg:gap-8">
           {/* Company Information */}
-          <div className="md:col-span-2 lg:col-span-5">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true, amount: 0.3 }}
+            className="md:col-span-2 lg:col-span-5"
+          >
             <Link href="/" className="inline-block mb-6">
-              <span className="text-2xl font-bold">
+              <motion.span 
+                whileHover={{ scale: 1.05 }}
+                className="text-2xl font-bold"
+              >
                 Byte<span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">ByByte</span>
-              </span>
+              </motion.span>
             </Link>
-            <p className="text-slate-600 dark:text-slate-400 max-w-md mb-6">
+            <motion.p 
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              viewport={{ once: true }}
+              className="text-slate-600 dark:text-slate-400 max-w-md mb-6"
+            >
               Platform belajar coding interaktif dengan materi terstruktur, latihan hands-on, dan dukungan komunitas untuk membantu Anda menguasai keterampilan pemrograman yang dibutuhkan di dunia nyata.
-            </p>
+            </motion.p>
             {/* <div className="flex gap-4">
               <a 
                 href="https://github.com" 
@@ -61,15 +79,21 @@ export function Footer() {
                 <MailIcon size={18} />
               </a>
             </div> */}
-          </div>
+          </motion.div>
 
           {/* Navigation Links */}
-          <div className="lg:col-span-2">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            viewport={{ once: true, amount: 0.3 }}
+            className="lg:col-span-2"
+          >
             <h3 className="font-semibold text-lg text-slate-900 dark:text-white mb-4">
               Navigasi
             </h3>
             <ul className="space-y-3">
-              <li>
+              <motion.li whileHover={{ x: 3 }} transition={{ type: "spring" }}>
                 <Link 
                   href="/" 
                   className="text-slate-600 hover:text-indigo-600 dark:text-slate-400 dark:hover:text-indigo-400 transition-colors inline-flex items-center group"
@@ -79,8 +103,8 @@ export function Footer() {
                     <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-indigo-600 dark:bg-indigo-400 transition-all duration-200 group-hover:w-full"></span>
                   </span>
                 </Link>
-              </li>
-              <li>
+              </motion.li>
+              <motion.li whileHover={{ x: 3 }} transition={{ type: "spring" }}>
                 <Link 
                   href="/kursus" 
                   className="text-slate-600 hover:text-indigo-600 dark:text-slate-400 dark:hover:text-indigo-400 transition-colors inline-flex items-center group"
@@ -90,8 +114,8 @@ export function Footer() {
                     <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-indigo-600 dark:bg-indigo-400 transition-all duration-200 group-hover:w-full"></span>
                   </span>
                 </Link>
-              </li>
-              <li>
+              </motion.li>
+              <motion.li whileHover={{ x: 3 }} transition={{ type: "spring" }}>
                 <Link 
                   href="/tentang" 
                   className="text-slate-600 hover:text-indigo-600 dark:text-slate-400 dark:hover:text-indigo-400 transition-colors inline-flex items-center group"
@@ -101,17 +125,23 @@ export function Footer() {
                     <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-indigo-600 dark:bg-indigo-400 transition-all duration-200 group-hover:w-full"></span>
                   </span>
                 </Link>
-              </li>
+              </motion.li>
             </ul>
-          </div>
+          </motion.div>
 
           {/* Resources */}
-          <div className="lg:col-span-2">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            viewport={{ once: true, amount: 0.3 }}
+            className="lg:col-span-2"
+          >
             <h3 className="font-semibold text-lg text-slate-900 dark:text-white mb-4">
               Informasi
             </h3>
             <ul className="space-y-3">
-              <li>
+              <motion.li whileHover={{ x: 3 }} transition={{ type: "spring" }}>
                 <Link 
                   href="/kebijakan-privasi" 
                   className="text-slate-600 hover:text-indigo-600 dark:text-slate-400 dark:hover:text-indigo-400 transition-colors inline-flex items-center group"
@@ -121,8 +151,8 @@ export function Footer() {
                     <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-indigo-600 dark:bg-indigo-400 transition-all duration-200 group-hover:w-full"></span>
                   </span>
                 </Link>
-              </li>
-              <li>
+              </motion.li>
+              <motion.li whileHover={{ x: 3 }} transition={{ type: "spring" }}>
                 <Link 
                   href="/syarat" 
                   className="text-slate-600 hover:text-indigo-600 dark:text-slate-400 dark:hover:text-indigo-400 transition-colors inline-flex items-center group"
@@ -132,8 +162,8 @@ export function Footer() {
                     <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-indigo-600 dark:bg-indigo-400 transition-all duration-200 group-hover:w-full"></span>
                   </span>
                 </Link>
-              </li>
-              <li>
+              </motion.li>
+              <motion.li whileHover={{ x: 3 }} transition={{ type: "spring" }}>
                 <Link 
                   href="/faq" 
                   className="text-slate-600 hover:text-indigo-600 dark:text-slate-400 dark:hover:text-indigo-400 transition-colors inline-flex items-center group"
@@ -143,9 +173,9 @@ export function Footer() {
                     <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-indigo-600 dark:bg-indigo-400 transition-all duration-200 group-hover:w-full"></span>
                   </span>
                 </Link>
-              </li>
+              </motion.li>
             </ul>
-          </div>
+          </motion.div>
 
           {/* Newsletter Signup */}
           {/* <div className="lg:col-span-3">
@@ -172,14 +202,24 @@ export function Footer() {
         </div>
 
         {/* Copyright */}
-        <div className="border-t border-slate-200 dark:border-slate-800 pt-8 mt-12 text-center md:flex md:justify-between md:text-left">
+        <motion.div 
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+          viewport={{ once: true }}
+          className="border-t border-slate-200 dark:border-slate-800 pt-8 mt-12 text-center md:flex md:justify-between md:text-left"
+        >
           <p className="text-sm text-slate-600 dark:text-slate-400">
             &copy; {new Date().getFullYear()} ByteByByte. Hak Cipta Dilindungi.
           </p>
           <p className="text-sm text-slate-600 dark:text-slate-400 mt-2 md:mt-0">
-            Dibuat dengan <span className="text-red-500">❤️</span> oleh BimaDev
+            Dibuat dengan <motion.span 
+              animate={{ scale: [1, 1.2, 1] }} 
+              transition={{ repeat: Infinity, repeatDelay: 1.5 }}
+              className="text-red-500"
+            >❤️</motion.span> oleh BimaDev
           </p>
-        </div>
+        </motion.div>
       </div>
     </footer>
   );

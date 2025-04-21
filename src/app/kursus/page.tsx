@@ -7,6 +7,13 @@ import courses from "@/data/courses.json";
 import Image from "next/image";
 import { COMMUNITY_MEMBER_COUNT, WHATSAPP_GROUP_LINK } from "@/lib/constant";
 import { CommunityBanner } from "@/components/ui/CommunityBanner";
+import { 
+  AnimateOnScroll, 
+  StaggerContainer, 
+  StaggerItem, 
+  HoverEffectCard 
+} from "@/components/animations/page-transitions";
+
 export default function CoursesPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState(courses.courses);
@@ -67,6 +74,7 @@ export default function CoursesPage() {
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-slate-900">
       {/* Hero Section */}
+      <AnimateOnScroll animation="fade">
       <section className="relative overflow-hidden bg-gradient-to-br from-blue-600 to-indigo-700 py-20">
         <div className="absolute inset-0 overflow-hidden">
           <div className="absolute -top-40 -right-40 h-96 w-96 rounded-full bg-white/10 blur-3xl"></div>
@@ -75,6 +83,7 @@ export default function CoursesPage() {
         </div>
         
         <div className="container relative z-10 mx-auto px-6">
+            <AnimateOnScroll animation="fade" delay={0.1}>
           <div className="mx-auto max-w-3xl text-center">
             <h1 className="mb-6 text-4xl font-bold leading-tight tracking-tight text-white md:text-5xl">
               Jelajahi Semua Kursus
@@ -85,7 +94,7 @@ export default function CoursesPage() {
             
             <div className="mx-auto relative max-w-2xl">
               <form onSubmit={handleSearch} className="relative">
-                <div className="relative flex w-full items-center rounded-full border-2 border-white/30 bg-white/10 p-1 backdrop-blur-sm focus-within:border-white/50 shadow-xl shadow-blue-900/20 transition-all duration-300">
+                    <div className="relative flex w-full items-center rounded-full border-2 border-white/30 bg-white/10 p-1 backdrop-blur-sm focus-within:border-white/50 shadow-xl shadow-blue-900/20 transition-all duration-300 hover:shadow-blue-900/30 hover:border-white/40">
                   <Search className="ml-3 h-5 w-5 text-white/70" />
                   <input 
                     type="text" 
@@ -104,7 +113,7 @@ export default function CoursesPage() {
                   </button>
                   <button 
                     type="submit"
-                    className="rounded-full bg-white px-4 py-2 font-medium text-indigo-600 hover:bg-white/90 transition-all duration-300 shadow-md hover:shadow-lg"
+                        className="rounded-full bg-white px-4 py-2 font-medium text-indigo-600 hover:bg-white/90 transition-all duration-300 shadow-md hover:shadow-lg hover:scale-105"
                   >
                     Cari
                   </button>
@@ -153,7 +162,7 @@ export default function CoursesPage() {
                       <button
                         type="button"
                         onClick={resetFilters}
-                        className="flex items-center rounded-lg bg-slate-100 px-3 py-1.5 text-sm font-medium text-slate-700 hover:bg-slate-200 dark:bg-slate-700 dark:text-slate-300 dark:hover:bg-slate-600"
+                            className="flex items-center rounded-lg bg-slate-100 px-3 py-1.5 text-sm font-medium text-slate-700 hover:bg-slate-200 dark:bg-slate-700 dark:text-slate-300 dark:hover:bg-slate-600 transition-colors duration-300"
                       >
                         <FilterX className="mr-1 h-4 w-4" />
                         Reset
@@ -164,12 +173,15 @@ export default function CoursesPage() {
               </form>
             </div>
           </div>
+            </AnimateOnScroll>
         </div>
       </section>
+      </AnimateOnScroll>
 
       {/* Main Content */}
       <section className="py-16">
         <div className="container mx-auto px-6">
+          <AnimateOnScroll animation="fade">
           <div className="mb-8 flex flex-col sm:flex-row sm:items-center justify-between">
             <div>
               <h2 className="text-2xl font-bold text-slate-900 dark:text-white">Semua Kursus</h2>
@@ -187,96 +199,105 @@ export default function CoursesPage() {
             {(searchQuery || filters.category || filters.level) && (
               <button
                 onClick={resetFilters}
-                className="mt-4 sm:mt-0 inline-flex items-center rounded-lg bg-slate-100 px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700 transition-all duration-300"
+                  className="mt-4 sm:mt-0 inline-flex items-center rounded-lg bg-slate-100 px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700 transition-all duration-300 hover:scale-105"
               >
                 <FilterX className="mr-2 h-4 w-4" />
                 Reset Filter
               </button>
             )}
           </div>
+          </AnimateOnScroll>
           
           {searchResults.length > 0 ? (
             <>
-              <div className="mb-8">
-                <CommunityBanner
-                  whatsappLink={WHATSAPP_GROUP_LINK}
-                  variant="inline"
-                  memberCount={COMMUNITY_MEMBER_COUNT}
-                />
-              </div>
+              <AnimateOnScroll animation="fade" delay={0.1}>
+                <div className="mb-8">
+                  <CommunityBanner
+                    whatsappLink={WHATSAPP_GROUP_LINK}
+                    variant="inline"
+                    memberCount={COMMUNITY_MEMBER_COUNT}
+                  />
+                </div>
+              </AnimateOnScroll>
               
-              <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-                {searchResults.map((course) => (
-                  <Link key={course.id} href={`/kursus/${course.id}`} className="group">
-                    <div className="h-full overflow-hidden rounded-2xl border border-slate-200 bg-white transition-all duration-500 hover:-translate-y-2 hover:shadow-xl dark:border-slate-800 dark:bg-slate-800/90 dark:hover:shadow-slate-900/20">
-                      <div className="relative aspect-video overflow-hidden">
-                        {course.image ? (
-                          <Image 
-                            src={course.image} 
-                            alt={course.title} 
-                            width={600} 
-                            height={340} 
-                            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" 
-                          />
-                        ) : (
-                          <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-blue-600 to-indigo-700">
-                            <BookOpen size={40} className="text-white opacity-40" />
-                          </div>
-                        )}
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
-                        
-                        <div className="absolute bottom-0 left-0 w-full p-4">
-                          <div className="flex flex-wrap gap-2 opacity-0 transition-all duration-500 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0">
-                            <span className="inline-flex items-center rounded-full bg-blue-100/90 px-2.5 py-0.5 text-xs font-medium text-blue-800 backdrop-blur-sm dark:bg-blue-900/90 dark:text-blue-300">
-                              {course.level}
-                            </span>
-                            <span className="inline-flex items-center rounded-full bg-slate-100/90 px-2.5 py-0.5 text-xs font-medium text-slate-800 backdrop-blur-sm dark:bg-slate-800/90 dark:text-slate-300">
-                              {course.lessons} Pelajaran
-                            </span>
-                          </div>
+              <StaggerContainer staggerChildren={0.05} className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+              {searchResults.map((course) => (
+                  <StaggerItem key={course.id}>
+                    <HoverEffectCard>
+                      <Link key={course.id} href={`/kursus/${course.id}`} className="group block h-full">
+                  <div className="h-full overflow-hidden rounded-2xl border border-slate-200 bg-white transition-all duration-500 hover:-translate-y-2 hover:shadow-xl dark:border-slate-800 dark:bg-slate-800/90 dark:hover:shadow-slate-900/20">
+                    <div className="relative aspect-video overflow-hidden">
+                      {course.image ? (
+                        <Image 
+                          src={course.image} 
+                          alt={course.title} 
+                          width={600} 
+                          height={340} 
+                          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" 
+                        />
+                      ) : (
+                        <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-blue-600 to-indigo-700">
+                                <BookOpen size={40} className="text-white opacity-40 group-hover:scale-110 transition-transform duration-300" />
                         </div>
-                      </div>
+                      )}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
                       
-                      <div className="p-6">
-                        <div className="mb-2 inline-flex items-center rounded-full bg-indigo-100 px-2.5 py-0.5 text-xs font-medium text-indigo-800 dark:bg-indigo-900/30 dark:text-indigo-300">
-                          {course.category}
-                        </div>
-                        
-                        <h3 className="mb-2 text-xl font-bold text-slate-900 transition-colors duration-300 group-hover:text-indigo-600 dark:text-white dark:group-hover:text-indigo-400">
-                          {course.title}
-                        </h3>
-                        
-                        <p className="mb-4 text-sm text-slate-600 dark:text-slate-400">
-                          {course.description}
-                        </p>
-                        
-                        <div className="flex items-center text-indigo-600 dark:text-indigo-400 transition-all duration-300">
-                          <span className="font-medium">Lihat Kursus</span>
-                          <ArrowRight size={16} className="ml-2 transition-transform duration-300 group-hover:translate-x-2" />
+                      <div className="absolute bottom-0 left-0 w-full p-4">
+                        <div className="flex flex-wrap gap-2 opacity-0 transition-all duration-500 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0">
+                          <span className="inline-flex items-center rounded-full bg-blue-100/90 px-2.5 py-0.5 text-xs font-medium text-blue-800 backdrop-blur-sm dark:bg-blue-900/90 dark:text-blue-300">
+                            {course.level}
+                          </span>
+                          <span className="inline-flex items-center rounded-full bg-slate-100/90 px-2.5 py-0.5 text-xs font-medium text-slate-800 backdrop-blur-sm dark:bg-slate-800/90 dark:text-slate-300">
+                            {course.lessons} Pelajaran
+                          </span>
                         </div>
                       </div>
                     </div>
-                  </Link>
+                    
+                    <div className="p-6">
+                            <div className="mb-2 inline-flex items-center rounded-full bg-indigo-100 px-2.5 py-0.5 text-xs font-medium text-indigo-800 dark:bg-indigo-900/30 dark:text-indigo-300 hover:scale-105 transition-transform duration-300">
+                        {course.category}
+                      </div>
+                      
+                            <h3 className="mb-2 text-xl font-bold text-slate-900 transition-colors duration-300 group-hover:text-indigo-600 dark:text-white dark:group-hover:text-indigo-400 group-hover:translate-x-1 transition-transform">
+                        {course.title}
+                      </h3>
+                      
+                            <p className="mb-4 text-sm text-slate-600 dark:text-slate-400 group-hover:text-slate-800 dark:group-hover:text-slate-300 transition-colors">
+                        {course.description}
+                      </p>
+                      
+                            <div className="flex items-center text-indigo-600 dark:text-indigo-400 font-medium">
+                              <span className="mr-2">Lihat Detail</span>
+                              <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform duration-300 animate-pulse-slow" />
+                      </div>
+                    </div>
+                  </div>
+                </Link>
+                    </HoverEffectCard>
+                  </StaggerItem>
                 ))}
-              </div>
+              </StaggerContainer>
             </>
           ) : (
-            <div className="rounded-xl border border-slate-200 dark:border-slate-700 p-16 text-center">
-              <div className="mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-slate-100 mx-auto dark:bg-slate-800">
-                <BookOpen className="h-10 w-10 text-slate-500 dark:text-slate-400" />
+            <AnimateOnScroll animation="fade">
+              <div className="rounded-lg border border-slate-200 bg-white p-8 dark:border-slate-800 dark:bg-slate-800 text-center">
+                <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-slate-100 dark:bg-slate-700">
+                  <FilterX size={32} className="text-slate-600 dark:text-slate-400" />
               </div>
-              <h3 className="mb-2 text-xl font-bold text-slate-900 dark:text-white">Tidak Ada Kursus Ditemukan</h3>
-              <p className="mb-6 text-slate-600 dark:text-slate-400">
-                Maaf, tidak ada kursus yang sesuai dengan kriteria pencarian Anda. Coba ubah filter atau kata kunci pencarian.
+                <h3 className="mt-4 text-lg font-semibold text-slate-900 dark:text-white">Tidak Ada Hasil</h3>
+                <p className="mt-2 text-slate-600 dark:text-slate-400">
+                  Tidak ditemukan kursus yang sesuai dengan filter Anda. Coba ubah kata kunci pencarian atau reset filter.
               </p>
-              <button
+              <button 
                 onClick={resetFilters}
-                className="inline-flex items-center rounded-full bg-blue-100 px-6 py-2.5 text-sm font-medium text-blue-800 hover:bg-blue-200 dark:bg-blue-900/30 dark:text-blue-400 dark:hover:bg-blue-900/50"
+                  className="mt-4 inline-flex items-center rounded-full px-4 py-2 text-sm font-medium bg-indigo-600 text-white hover:bg-indigo-700 transition-colors duration-300"
               >
-                <FilterX className="mr-2 h-4 w-4" />
-                Reset Filter
+                  <FilterX className="mr-2 h-4 w-4" />
+                  Reset Filter
               </button>
             </div>
+            </AnimateOnScroll>
           )}
         </div>
       </section>

@@ -6,6 +6,7 @@ import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { WhatsAppModal } from "@/components/ui/WhatsAppModal";
 import { WHATSAPP_GROUP_LINK } from "@/lib/constant";
+import { PageTransition } from "@/components/animations/page-transitions";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -58,7 +59,11 @@ export default function RootLayout({
         >
           <div className="absolute inset-0 -z-10 bg-[radial-gradient(#1e293b_1px,transparent_1px)] [background-size:20px_20px] opacity-50"></div>
           <Header />
-          <main className="flex-1 animate-fade-in">{children}</main>
+          <main className="flex-1">
+            <PageTransition>
+              {children}
+            </PageTransition>
+          </main>
           <Footer />
           
           {/* WhatsApp Modal dengan delay 20 detik dan hanya tampil sekali per sesi */}
