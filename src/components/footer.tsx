@@ -16,7 +16,7 @@ export function Footer() {
             <p className="text-slate-600 dark:text-slate-400 max-w-md mb-6">
               Platform belajar coding interaktif dengan materi terstruktur, latihan hands-on, dan dukungan komunitas untuk membantu Anda menguasai keterampilan pemrograman yang dibutuhkan di dunia nyata.
             </p>
-            <div className="flex gap-4">
+            {/* <div className="flex gap-4">
               <a 
                 href="https://github.com" 
                 target="_blank" 
@@ -60,7 +60,7 @@ export function Footer() {
               >
                 <MailIcon size={18} />
               </a>
-            </div>
+            </div> */}
           </div>
 
           {/* Navigation Links */}
@@ -148,7 +148,7 @@ export function Footer() {
           </div>
 
           {/* Newsletter Signup */}
-          <div className="lg:col-span-3">
+          {/* <div className="lg:col-span-3">
             <h3 className="font-semibold text-lg text-slate-900 dark:text-white mb-3">
               Berlangganan Newsletter
             </h3>
@@ -168,7 +168,7 @@ export function Footer() {
                 Daftar <ArrowRight size={16} className="ml-2" />
               </button>
             </form>
-          </div>
+          </div> */}
         </div>
 
         {/* Copyright */}
@@ -177,7 +177,7 @@ export function Footer() {
             &copy; {new Date().getFullYear()} ByteByByte. Hak Cipta Dilindungi.
           </p>
           <p className="text-sm text-slate-600 dark:text-slate-400 mt-2 md:mt-0">
-            Dibuat dengan <span className="text-red-500">❤️</span> di Indonesia
+            Dibuat dengan <span className="text-red-500">❤️</span> oleh BimaDev
           </p>
         </div>
       </div>

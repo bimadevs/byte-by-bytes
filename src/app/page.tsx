@@ -2,6 +2,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight, BookOpen, Code, Users, Star } from "lucide-react";
 import courses from "@/data/courses.json";
+import { CommunityBanner } from "@/components/ui/CommunityBanner";
+import { WHATSAPP_GROUP_LINK, COMMUNITY_MEMBER_COUNT } from "@/lib/constant";
 
 // Helper untuk mendapatkan kursus unggulan
 function getFeaturedCourses() {
@@ -27,10 +29,10 @@ export default function Home() {
         <div className="container relative z-10 mx-auto px-6">
           <div className="mx-auto max-w-4xl text-center">
             <h1 className="mb-6 bg-gradient-to-r from-blue-200 via-blue-400 to-indigo-300 bg-clip-text text-5xl font-bold leading-tight tracking-tight text-transparent md:text-6xl lg:text-7xl">
-              Kuasai Koding Dengan <span className="relative inline-block">Presisi<span className="absolute -bottom-2 left-0 h-1 w-full bg-gradient-to-r from-blue-400 to-indigo-500"></span></span>
+              Kuasai Koding Dengan <span className="relative inline-block text-blue-500">Byte by Byte<span className="absolute -bottom-2 left-0 h-1 w-full bg-gradient-to-r from-blue-400 to-indigo-500"></span></span>
             </h1>
             <p className="mb-10 text-lg text-slate-300 md:text-xl">
-              Platform belajar coding premium dengan materi terstruktur, proyek praktis, dan komunitas pendukung untuk mengembangkan karir Anda.
+              Platform belajar coding yang di buat gratis untuk semua orang
             </p>
             <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
               <Link
@@ -52,16 +54,16 @@ export default function Home() {
           </div>
           
           {/* Stats */}
-          <div className="mx-auto mt-20 grid max-w-4xl grid-cols-2 gap-8 border-t border-slate-800 pt-10 md:grid-cols-4">
+          {/* <div className="mx-auto mt-20 grid max-w-4xl grid-cols-2 gap-8 border-t border-slate-800 pt-10 md:grid-cols-3">
             <div className="text-center">
-              <div className="text-3xl font-bold text-white">120+</div>
+              <div className="text-3xl font-bold text-white">1+</div>
               <div className="mt-2 text-sm text-slate-400">Pelajaran</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold text-white">15+</div>
+              <div className="text-3xl font-bold text-white">1+</div>
               <div className="mt-2 text-sm text-slate-400">Kursus</div>
             </div>
-            <div className="text-center">
+             <div className="text-center">
               <div className="text-3xl font-bold text-white">1200+</div>
               <div className="mt-2 text-sm text-slate-400">Siswa</div>
             </div>
@@ -69,7 +71,7 @@ export default function Home() {
               <div className="text-3xl font-bold text-white">4.9</div>
               <div className="mt-2 text-sm text-slate-400">Rating</div>
             </div>
-          </div>
+          </div> */}
         </div>
       </section>
 
@@ -204,10 +206,10 @@ export default function Home() {
       </section>
 
       {/* CTA Section */}
-      <section className="relative overflow-hidden bg-slate-900 py-20">
+      {/* <section className="relative overflow-hidden bg-slate-900 py-20">
         <div className="absolute inset-0 overflow-hidden">
           <div className="absolute -top-40 -right-40 h-96 w-96 rounded-full bg-blue-500/10 blur-3xl"></div>
-          <div className="absolute top-1/3 -left-20 h-72 w-72 rounded-full bg-indigo-500/10 blur-3xl"></div>
+          <div className="absolute top-1/3 -left-20 h-72 w-72 rounded-full bg-white/10 blur-3xl"></div>
         </div>
         
         <div className="container relative z-10 mx-auto px-6">
@@ -231,6 +233,19 @@ export default function Home() {
                 </Link>
               </div>
             </div>
+          </div>
+        </div>
+      </section> */}
+      
+      {/* Community Banner */}
+      <section className="py-16 bg-slate-50 dark:bg-slate-900/50">
+        <div className="container mx-auto px-6">
+          <div className="mx-auto max-w-4xl">
+            <CommunityBanner 
+              whatsappLink={WHATSAPP_GROUP_LINK}
+              memberCount={COMMUNITY_MEMBER_COUNT}
+              variant="hero"
+            />
           </div>
         </div>
       </section>

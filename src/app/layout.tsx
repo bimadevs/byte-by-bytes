@@ -4,6 +4,8 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
+import { WhatsAppModal } from "@/components/ui/WhatsAppModal";
+import { WHATSAPP_GROUP_LINK } from "@/lib/constant";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -58,6 +60,13 @@ export default function RootLayout({
           <Header />
           <main className="flex-1 animate-fade-in">{children}</main>
           <Footer />
+          
+          {/* WhatsApp Modal dengan delay 20 detik dan hanya tampil sekali per sesi */}
+          <WhatsAppModal 
+            whatsappLink={WHATSAPP_GROUP_LINK}
+            delay={20000}
+            showOnce={true}
+          />
         </ThemeProvider>
       </body>
     </html>

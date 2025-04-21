@@ -1,64 +1,14 @@
 {
   "courses": [
     {
-      "id": "html-dasar",
-      "title": "HTML Dasar",
-      "description": "Pelajari dasar-dasar HTML untuk membangun fondasi yang kuat dalam dunia pengembangan web.",
-      "image": "/images/courses/html-logo.png",
+      "id": "pengenalan-programming",
+      "title": "Pengenalan Programming",
+      "description": "Pelajari dasar-dasar programming untuk membangun fondasi yang kuat dalam dunia teknologi.",
+      "image": "/images/courses/pengenalan-programming.webp",
       "level": "Pemula",
-      "lessons": 5,
-      "category": "Web Development",
+      "lessons": 2,
+      "category": "Programming",
       "featured": true
-    },
-    {
-      "id": "javascript-dasar",
-      "title": "JavaScript Dasar",
-      "description": "Pelajari dasar-dasar JavaScript untuk memulai perjalanan Anda dalam pengembangan web.",
-      "image": "/images/courses/javascript-logo.png",
-      "level": "Pemula",
-      "lessons": 12,
-      "category": "Web Development",
-      "featured": true
-    },
-    {
-      "id": "react-fundamental",
-      "title": "React Fundamental",
-      "description": "Pelajari library React.js untuk membangun antarmuka pengguna yang interaktif dan responsif.",
-      "image": "/images/courses/react.jpg",
-      "level": "Menengah",
-      "lessons": 15,
-      "category": "Frontend",
-      "featured": true
-    },
-    {
-      "id": "typescript-modern",
-      "title": "TypeScript Modern",
-      "description": "Tingkatkan keterampilan JavaScript Anda dengan TypeScript untuk pengembangan yang lebih aman dan terstruktur.",
-      "image": "/images/courses/typescript.jpg",
-      "level": "Menengah",
-      "lessons": 10,
-      "category": "Web Development",
-      "featured": true
-    },
-    {
-      "id": "nodejs-untuk-backend",
-      "title": "Node.js untuk Backend",
-      "description": "Bangun aplikasi backend menggunakan Node.js dan Express dengan pendekatan modern.",
-      "image": "/images/courses/nodejs.jpg",
-      "level": "Menengah",
-      "lessons": 14,
-      "category": "Backend",
-      "featured": false
-    },
-    {
-      "id": "tailwind-css-masterclass",
-      "title": "Tailwind CSS Masterclass",
-      "description": "Kuasai Tailwind CSS untuk membangun antarmuka pengguna yang modern dan responsif.",
-      "image": "/images/courses/tailwind.jpg",
-      "level": "Pemula",
-      "lessons": 8,
-      "category": "CSS",
-      "featured": false
     }
   ]
 } 

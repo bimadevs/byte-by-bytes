@@ -5,7 +5,8 @@ import Link from "next/link";
 import { ArrowRight, Search, BookOpen, FilterX, ChevronDown } from "lucide-react";
 import courses from "@/data/courses.json";
 import Image from "next/image";
-
+import { COMMUNITY_MEMBER_COUNT, WHATSAPP_GROUP_LINK } from "@/lib/constant";
+import { CommunityBanner } from "@/components/ui/CommunityBanner";
 export default function CoursesPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState(courses.courses);
@@ -195,79 +196,85 @@ export default function CoursesPage() {
           </div>
           
           {searchResults.length > 0 ? (
-            <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-              {searchResults.map((course) => (
-                <Link key={course.id} href={`/kursus/${course.id}`} className="group">
-                  <div className="h-full overflow-hidden rounded-2xl border border-slate-200 bg-white transition-all duration-500 hover:-translate-y-2 hover:shadow-xl dark:border-slate-800 dark:bg-slate-800/90 dark:hover:shadow-slate-900/20">
-                    <div className="relative aspect-video overflow-hidden">
-                      {course.image ? (
-                        <Image 
-                          src={course.image} 
-                          alt={course.title} 
-                          width={600} 
-                          height={340} 
-                          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" 
-                        />
-                      ) : (
-                        <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-blue-600 to-indigo-700">
-                          <BookOpen size={40} className="text-white opacity-40" />
-                        </div>
-                      )}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
-                      
-                      <div className="absolute bottom-0 left-0 w-full p-4">
-                        <div className="flex flex-wrap gap-2 opacity-0 transition-all duration-500 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0">
-                          <span className="inline-flex items-center rounded-full bg-blue-100/90 px-2.5 py-0.5 text-xs font-medium text-blue-800 backdrop-blur-sm dark:bg-blue-900/90 dark:text-blue-300">
-                            {course.level}
-                          </span>
-                          <span className="inline-flex items-center rounded-full bg-slate-100/90 px-2.5 py-0.5 text-xs font-medium text-slate-800 backdrop-blur-sm dark:bg-slate-800/90 dark:text-slate-300">
-                            {course.lessons} Pelajaran
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                    
-                    <div className="p-6">
-                      <div className="mb-2 inline-flex items-center rounded-full bg-indigo-100 px-2.5 py-0.5 text-xs font-medium text-indigo-800 dark:bg-indigo-900/30 dark:text-indigo-300">
-                        {course.category}
-                      </div>
-                      
-                      <h3 className="mb-2 text-xl font-bold text-slate-900 transition-colors duration-300 group-hover:text-indigo-600 dark:text-white dark:group-hover:text-indigo-400">
-                        {course.title}
-                      </h3>
-                      
-                      <p className="mb-4 text-sm text-slate-600 dark:text-slate-400">
-                        {course.description}
-                      </p>
-                      
-                      <div className="flex items-center text-indigo-600 dark:text-indigo-400 transition-all duration-300">
-                        <span className="font-medium">Lihat Kursus</span>
-                        <ArrowRight size={16} className="ml-2 transition-transform duration-300 group-hover:translate-x-2" />
-                      </div>
-                    </div>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          ) : (
-            <div className="text-center py-16 bg-white dark:bg-slate-800/50 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800">
-              <div className="inline-flex h-20 w-20 items-center justify-center rounded-full bg-slate-100 dark:bg-slate-700/50">
-                <Search className="h-10 w-10 text-slate-400 dark:text-slate-500" />
+            <>
+              <div className="mb-8">
+                <CommunityBanner
+                  whatsappLink={WHATSAPP_GROUP_LINK}
+                  variant="inline"
+                  memberCount={COMMUNITY_MEMBER_COUNT}
+                />
               </div>
-              <h3 className="mt-4 text-xl font-medium text-slate-900 dark:text-white">
-                Tidak ada hasil
-              </h3>
-              <p className="mt-2 text-slate-600 dark:text-slate-400 max-w-md mx-auto">
-                {searchQuery && <span>Tidak ada kursus yang sesuai dengan pencarian "{searchQuery}"</span>}
-                {filters.category && <span> dalam kategori "{filters.category}"</span>}
-                {filters.level && <span> dengan level "{filters.level}"</span>}
-                {!searchQuery && !filters.category && !filters.level && <span>Tidak ada kursus yang tersedia saat ini</span>}
+              
+              <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+                {searchResults.map((course) => (
+                  <Link key={course.id} href={`/kursus/${course.id}`} className="group">
+                    <div className="h-full overflow-hidden rounded-2xl border border-slate-200 bg-white transition-all duration-500 hover:-translate-y-2 hover:shadow-xl dark:border-slate-800 dark:bg-slate-800/90 dark:hover:shadow-slate-900/20">
+                      <div className="relative aspect-video overflow-hidden">
+                        {course.image ? (
+                          <Image 
+                            src={course.image} 
+                            alt={course.title} 
+                            width={600} 
+                            height={340} 
+                            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" 
+                          />
+                        ) : (
+                          <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-blue-600 to-indigo-700">
+                            <BookOpen size={40} className="text-white opacity-40" />
+                          </div>
+                        )}
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
+                        
+                        <div className="absolute bottom-0 left-0 w-full p-4">
+                          <div className="flex flex-wrap gap-2 opacity-0 transition-all duration-500 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0">
+                            <span className="inline-flex items-center rounded-full bg-blue-100/90 px-2.5 py-0.5 text-xs font-medium text-blue-800 backdrop-blur-sm dark:bg-blue-900/90 dark:text-blue-300">
+                              {course.level}
+                            </span>
+                            <span className="inline-flex items-center rounded-full bg-slate-100/90 px-2.5 py-0.5 text-xs font-medium text-slate-800 backdrop-blur-sm dark:bg-slate-800/90 dark:text-slate-300">
+                              {course.lessons} Pelajaran
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div className="p-6">
+                        <div className="mb-2 inline-flex items-center rounded-full bg-indigo-100 px-2.5 py-0.5 text-xs font-medium text-indigo-800 dark:bg-indigo-900/30 dark:text-indigo-300">
+                          {course.category}
+                        </div>
+                        
+                        <h3 className="mb-2 text-xl font-bold text-slate-900 transition-colors duration-300 group-hover:text-indigo-600 dark:text-white dark:group-hover:text-indigo-400">
+                          {course.title}
+                        </h3>
+                        
+                        <p className="mb-4 text-sm text-slate-600 dark:text-slate-400">
+                          {course.description}
+                        </p>
+                        
+                        <div className="flex items-center text-indigo-600 dark:text-indigo-400 transition-all duration-300">
+                          <span className="font-medium">Lihat Kursus</span>
+                          <ArrowRight size={16} className="ml-2 transition-transform duration-300 group-hover:translate-x-2" />
+                        </div>
+                      </div>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </>
+          ) : (
+            <div className="rounded-xl border border-slate-200 dark:border-slate-700 p-16 text-center">
+              <div className="mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-slate-100 mx-auto dark:bg-slate-800">
+                <BookOpen className="h-10 w-10 text-slate-500 dark:text-slate-400" />
+              </div>
+              <h3 className="mb-2 text-xl font-bold text-slate-900 dark:text-white">Tidak Ada Kursus Ditemukan</h3>
+              <p className="mb-6 text-slate-600 dark:text-slate-400">
+                Maaf, tidak ada kursus yang sesuai dengan kriteria pencarian Anda. Coba ubah filter atau kata kunci pencarian.
               </p>
-              <button 
+              <button
                 onClick={resetFilters}
-                className="mt-6 rounded-full bg-indigo-600 px-6 py-2.5 font-medium text-white hover:bg-indigo-700 transition-all duration-300 shadow-md hover:shadow-lg shadow-indigo-500/20 hover:shadow-indigo-600/30"
+                className="inline-flex items-center rounded-full bg-blue-100 px-6 py-2.5 text-sm font-medium text-blue-800 hover:bg-blue-200 dark:bg-blue-900/30 dark:text-blue-400 dark:hover:bg-blue-900/50"
               >
-                Reset Pencarian
+                <FilterX className="mr-2 h-4 w-4" />
+                Reset Filter
               </button>
             </div>
           )}

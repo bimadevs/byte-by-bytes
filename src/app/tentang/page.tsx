@@ -1,3 +1,6 @@
+import { COMMUNITY_MEMBER_COUNT } from "@/lib/constant";
+import { WHATSAPP_GROUP_LINK } from "@/lib/constant";
+import { CommunityBanner } from "@/components/ui/CommunityBanner";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -44,7 +47,7 @@ export default function AboutPage() {
                   <div className="flex-shrink-0 w-8 h-8 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-600 dark:text-blue-400">2</div>
                   <div>
                     <h4 className="font-bold">Pembelajaran Praktis</h4>
-                    <p className="text-sm text-muted-foreground">Fokus pada praktik langsung dan proyek nyata untuk membangun portofolio.</p>
+                    <p className="text-sm text-muted-foreground">Menyediakan konten yang praktis dan mudah dipahami.</p>
                   </div>
                 </li>
                 <li className="flex gap-3">
@@ -59,29 +62,14 @@ export default function AboutPage() {
           </div>
         </div>
 
-        <div className="mb-16">
+        {/* <div className="mb-16">
           <h2 className="text-2xl font-bold mb-6 text-center">Tim Kami</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {[
               {
-                name: "Andi Wijaya",
+                name: "BimaDev",
                 role: "Founder & Lead Instructor",
-                bio: "Developer dengan pengalaman 10+ tahun di berbagai proyek web dan mobile."
-              },
-              {
-                name: "Budi Santoso",
-                role: "Content Developer",
-                bio: "Spesialis dalam pengembangan materi pembelajaran interaktif untuk coding."
-              },
-              {
-                name: "Cindy Paramita",
-                role: "UX Designer",
-                bio: "Designer yang fokus pada pengalaman pengguna dalam platform pembelajaran."
-              },
-              {
-                name: "Denny Pratama",
-                role: "Technical Mentor",
-                bio: "Full-stack developer yang membantu siswa mengatasi masalah teknis."
+                bio: "Developer dengan pengalaman bertahun-tahun di dunia programming"
               }
             ].map((member, index) => (
               <div key={index} className="bg-card rounded-lg border p-6 hover:shadow-md transition-shadow">
@@ -94,21 +82,13 @@ export default function AboutPage() {
               </div>
             ))}
           </div>
-        </div>
+        </div> */}
 
-        <div className="bg-card rounded-lg border p-8 text-center">
-          <h2 className="text-2xl font-bold mb-4">Bergabunglah Dengan Kami</h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto mb-6">
-            Mulai perjalanan belajar coding Anda dengan ByteByByte. 
-            Akses ke berbagai kursus berkualitas tinggi, komunitas pendukung, dan alat pembelajaran interaktif.
-          </p>
-          <a 
-            href="/kursus" 
-            className="inline-block bg-primary hover:bg-primary/90 text-primary-foreground px-6 py-3 rounded-md font-medium transition-colors"
-          >
-            Jelajahi Kursus Kami
-          </a>
-        </div>
+        <CommunityBanner
+          whatsappLink={WHATSAPP_GROUP_LINK}
+          memberCount={COMMUNITY_MEMBER_COUNT}
+          variant="hero"
+        />
       </div>
     </div>
   );

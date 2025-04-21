@@ -4,6 +4,8 @@ import { ArrowLeft, ArrowRight, BookOpen, Clock, User, Bookmark, CheckCircle, Ca
 import { getCourseById } from "@/lib/mdx";
 import { Metadata } from "next";
 import Image from "next/image";
+import { CommunityBanner } from "@/components/ui/CommunityBanner";
+import { WHATSAPP_GROUP_LINK, COMMUNITY_MEMBER_COUNT } from "@/lib/constant";
 
 type CoursePageProps = {
   params: {
@@ -202,16 +204,23 @@ export default async function CoursePage({ params }: CoursePageProps) {
                   {course.lessons.length > 0 && (
                     <Link
                       href={`/kursus/${params.slug}/pelajaran/${course.lessons[0].id}`}
-                      className="group relative inline-flex w-full items-center justify-center overflow-hidden rounded-lg bg-gradient-to-r from-blue-600 to-indigo-600 px-6 py-3 font-medium text-white transition duration-300 ease-out"
+                      className="flex w-full items-center justify-center gap-2 rounded-lg bg-indigo-600 px-4 py-3 font-medium text-white transition-colors hover:bg-indigo-700"
                     >
-                      <span className="absolute inset-0 flex h-full w-full -translate-x-full items-center justify-center bg-gradient-to-r from-indigo-600 to-blue-600 transition-all duration-300 ease-out group-hover:translate-x-0"></span>
-                      <span className="relative flex items-center gap-2">
-                        <BookOpen size={18} />
-                        Mulai Belajar Sekarang
-                      </span>
+                      <span>Mulai Belajar</span>
+                      <ArrowRight size={18} />
                     </Link>
                   )}
+                  <div className="mt-6">
+                  <CommunityBanner
+                    whatsappLink={WHATSAPP_GROUP_LINK}
+                    variant="sidebar"
+                    memberCount={COMMUNITY_MEMBER_COUNT}
+                    showBadge={true}
+                  />
                 </div>
+                </div>
+                
+                
               </div>
             </div>
           </div>
