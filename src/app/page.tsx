@@ -92,7 +92,7 @@ export default function Home() {
                   Belajar bersama{" "}
                   <span className="bg-gradient-to-r from-blue-400 to-indigo-500 bg-clip-text text-transparent">
                     Byte by Byte
-                  </span>
+                </span>
                 </motion.h1>
                 
                 <motion.p 
@@ -112,14 +112,14 @@ export default function Home() {
                   >
                     <span>Mulai Belajar</span>
                     <ChevronRight className="ml-2 h-5 w-5" />
-                  </Link>
+              </Link>
                   
-                  <Link
-                    href="/tentang"
+              <Link
+                href="/tentang"
                     className="inline-flex items-center justify-center rounded-full border border-slate-700 bg-slate-800/50 px-6 py-3.5 font-medium text-slate-300 transition-all hover:bg-slate-800 hover:text-white hover:shadow-lg"
-                  >
-                    Tentang Kami
-                  </Link>
+              >
+                Tentang Kami
+              </Link>
                 </motion.div>
                 
                 <motion.div 
@@ -193,9 +193,9 @@ export default function Home() {
                       </pre>
                       <pre className="ml-4"><span className="text-slate-300">);</span></pre>
                       <pre><span className="text-slate-300">{'}'}</span></pre>
-                    </div>
-                  </div>
-                  
+            </div>
+          </div>
+          
                   {/* Decorative elements */}
                   <div className="absolute -bottom-6 -right-6 h-32 w-32 rounded-full bg-gradient-to-br from-blue-600/20 to-indigo-600/20 opacity-30 blur-xl"></div>
                 </div>
@@ -212,10 +212,10 @@ export default function Home() {
                   className="rounded-full border border-slate-700/60 bg-slate-800/40 px-4 py-1.5 text-sm font-medium text-slate-300 hover:text-white transition-colors"
                 >
                   {tech}
-                </div>
+            </div>
               ))}
             </div>
-          </div>
+            </div>
         </div>
       </section>
 
@@ -241,7 +241,7 @@ export default function Home() {
               Eksplorasi kursus-kursus populer untuk mengembangkan keterampilan coding Anda dengan pendekatan praktis dan mentor berpengalaman.
             </p>
           </div>
-                  
+
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {featuredCourses.map((course, index) => (
               <div key={course.id} className="h-full">
@@ -255,11 +255,11 @@ export default function Home() {
                         <div className="inline-flex items-center rounded-full bg-blue-500/10 px-2.5 py-1 text-xs font-medium text-blue-300 border border-blue-500/20">
                           <Code className="mr-1 h-3.5 w-3.5" />
                           {course.category}
-                        </div>
+                      </div>
                         <div className="inline-flex items-center rounded-full bg-slate-700/50 px-2.5 py-1 text-xs font-medium text-slate-300">
                           {course.level}
-                        </div>
-                      </div>
+                  </div>
+                    </div>
                     
                       {/* Course title */}
                       <h3 className="mb-3 text-xl font-bold text-white transition-colors group-hover:text-blue-400">
@@ -267,8 +267,8 @@ export default function Home() {
                       </h3>
                     
                       <p className="mb-6 text-sm text-slate-300/80 flex-grow group-hover:text-slate-300 transition-colors">
-                        {course.description}
-                      </p>
+                      {course.description}
+                    </p>
                     
                       {/* Course stats */}
                       <div className="mt-auto">
@@ -290,7 +290,7 @@ export default function Home() {
                     </div>
                   </div>
                 </Link>
-              </div>
+                </div>
             ))}
           </div>
 
@@ -328,7 +328,7 @@ export default function Home() {
               Kami hadir untuk mempermudah perjalanan belajar Anda dalam dunia pemrograman dengan pendekatan yang terstruktur dan praktis.
             </p>
           </div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
               {
@@ -351,7 +351,7 @@ export default function Home() {
                 <div className="group h-full rounded-2xl border border-white/10 bg-slate-800/30 p-8 transition-all duration-300 hover:border-blue-500/30 hover:bg-slate-800/50 hover:shadow-lg">
                   <div className="mb-6 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-500/20 to-indigo-500/20 p-3.5 text-blue-400 shadow-md">
                     <feature.icon className="h-8 w-8" />
-                  </div>
+            </div>
             
                   <h3 className="mb-3 text-xl font-bold text-white">
                     {feature.title}
@@ -360,13 +360,13 @@ export default function Home() {
                   <p className="text-slate-300/80 group-hover:text-slate-300 transition-colors">
                     {feature.description}
                   </p>
-                </div>
+            </div>
               </div>
             ))}
           </div>
         </div>
       </section>
-      
+
       {/* Community Banner */}
       <CommunityBanner
         whatsappLink={WHATSAPP_GROUP_LINK}

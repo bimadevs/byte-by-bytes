@@ -66,10 +66,10 @@ export default function RootLayout({
           </main>
           <Footer />
           
-          {/* WhatsApp Modal dengan delay 20 detik dan hanya tampil sekali per sesi */}
+          {/* WhatsApp Modal dengan delay 5 detik dan hanya tampil sekali per sesi */}
           <WhatsAppModal 
             whatsappLink={WHATSAPP_GROUP_LINK}
-            delay={20000}
+            delay={5000}
             showOnce={true}
           />
         </ThemeProvider>
