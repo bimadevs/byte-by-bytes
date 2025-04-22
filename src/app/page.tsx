@@ -278,10 +278,10 @@ export default function Home() {
                             <BookOpen className="mr-1.5 h-4 w-4 text-slate-400" />
                             <span className="text-sm text-slate-300">{course.lessons} Lessons</span>
                           </div>
-                          <div className="flex items-center">
+                          {/* <div className="flex items-center">
                             <Clock className="mr-1.5 h-4 w-4 text-slate-400" />
                             <span className="text-sm text-slate-300">4 Minggu</span>
-                          </div>
+                          </div> */}
                         </div>
                       </div>
                       
