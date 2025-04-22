@@ -3,7 +3,8 @@
 import Link from "next/link";
 import { ArrowRight, GithubIcon, TwitterIcon, LinkedinIcon, MailIcon, Instagram } from "lucide-react";
 import { motion } from "framer-motion";
-
+import { CommunityBanner } from "./ui/CommunityBanner";
+import { WHATSAPP_GROUP_LINK } from "@/lib/constant";
 export function Footer() {
   return (
     <footer className="bg-gradient-to-b from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-950 border-t border-slate-200 dark:border-slate-800">
@@ -199,6 +200,14 @@ export function Footer() {
               </button>
             </form>
           </div> */}
+          <div className="lg:col-span-3">
+          <CommunityBanner 
+            whatsappLink={WHATSAPP_GROUP_LINK}
+            variant="sidebar"
+            memberCount={400}
+            showBadge={true}
+          />
+        </div>
         </div>
 
         {/* Copyright */}
