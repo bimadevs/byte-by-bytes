@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { ArrowRight, Search, BookOpen, FilterX, ChevronDown } from "lucide-react";
 import courses from "@/data/courses.json";
@@ -23,9 +23,36 @@ export default function CoursesPage() {
     level: ""
   });
 
+  // Refs untuk komponen dropdown
+  const filterPanelRef = useRef<HTMLDivElement>(null);
+  const toggleButtonRef = useRef<HTMLButtonElement>(null);
+
   // Extract unique categories and levels
   const categories = Array.from(new Set(courses.courses.map(course => course.category)));
   const levels = Array.from(new Set(courses.courses.map(course => course.level)));
+
+  // Handle klik diluar dropdown dengan useRef
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (
+        filterPanelRef.current && 
+        !filterPanelRef.current.contains(event.target as Node) &&
+        toggleButtonRef.current && 
+        !toggleButtonRef.current.contains(event.target as Node)
+      ) {
+        setShowFilters(false);
+      }
+    }
+
+    // Hanya pasang listener jika dropdown terbuka
+    if (showFilters) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+    
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [showFilters]);
 
   const applyFilters = () => {
     let filteredCourses = courses.courses;
@@ -75,7 +102,7 @@ export default function CoursesPage() {
     <div className="min-h-screen bg-slate-50 dark:bg-slate-900">
       {/* Hero Section */}
       <AnimateOnScroll animation="fade">
-      <section className="relative overflow-hidden bg-gradient-to-br from-blue-600 to-indigo-700 py-20">
+      <section className="relative overflow-hidden bg-gradient-to-br from-blue-600 to-indigo-700 py-20 mb-8">
         <div className="absolute inset-0 overflow-hidden">
           <div className="absolute -top-40 -right-40 h-96 w-96 rounded-full bg-white/10 blur-3xl"></div>
           <div className="absolute top-1/2 -left-20 h-72 w-72 rounded-full bg-white/10 blur-3xl"></div>
@@ -92,9 +119,9 @@ export default function CoursesPage() {
               Temukan kursus yang sesuai dengan kebutuhan Anda dan mulai perjalanan coding yang akan mengubah karir Anda hari ini.
             </p>
             
-            <div className="mx-auto relative max-w-2xl">
+            <div className="mx-auto relative max-w-2xl pb-4">
               <form onSubmit={handleSearch} className="relative">
-                    <div className="relative flex w-full items-center rounded-full border-2 border-white/30 bg-white/10 p-1 backdrop-blur-sm focus-within:border-white/50 shadow-xl shadow-blue-900/20 transition-all duration-300 hover:shadow-blue-900/30 hover:border-white/40">
+                <div className="relative flex w-full items-center rounded-full border-2 border-white/30 bg-white/10 p-1 focus-within:border-white/50 shadow-xl shadow-blue-900/20 transition-all duration-300 hover:shadow-blue-900/30 hover:border-white/40">
                   <Search className="ml-3 h-5 w-5 text-white/70" />
                   <input 
                     type="text" 
@@ -105,25 +132,30 @@ export default function CoursesPage() {
                   />
                   <button 
                     type="button"
+                    ref={toggleButtonRef}
                     onClick={() => setShowFilters(!showFilters)}
-                    className="mr-1 rounded-full bg-white/20 p-2 text-white hover:bg-white/30 transition-all duration-300"
+                    className={`mr-1 rounded-full p-2 text-white transition-all duration-300 ${showFilters ? 'bg-white/30 shadow-md' : 'bg-white/20'}`}
                     aria-label="Toggle filters"
                   >
                     <ChevronDown className={`h-5 w-5 transition-transform duration-300 ${showFilters ? 'rotate-180' : ''}`} />
                   </button>
                   <button 
                     type="submit"
-                        className="rounded-full bg-white px-4 py-2 font-medium text-indigo-600 hover:bg-white/90 transition-all duration-300 shadow-md hover:shadow-lg hover:scale-105"
+                    className="rounded-full bg-white px-4 py-2 font-medium text-indigo-600 hover:bg-white/90 transition-all duration-300 shadow-md hover:shadow-lg hover:scale-105"
                   >
                     Cari
                   </button>
                 </div>
                 
                 {/* Filter Panel */}
-                <div className={`absolute top-full left-0 right-0 mt-2 rounded-xl bg-white dark:bg-slate-800 shadow-xl transition-all duration-300 overflow-hidden ${
-                  showFilters ? 'max-h-96 opacity-100 z-10' : 'max-h-0 opacity-0 -z-10'
-                }`}>
-                  <div className="p-4">
+                <div 
+                  ref={filterPanelRef}
+                  className={`filter-panel absolute top-full left-0 right-0 mt-2 rounded-xl bg-white dark:bg-slate-800 shadow-xl transition-all duration-300 overflow-visible z-50 border border-slate-200 dark:border-slate-700 ${
+                    showFilters ? 'max-h-[400px] opacity-100' : 'max-h-0 opacity-0 pointer-events-none'
+                  }`}
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <div className="p-5">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div>
                         <label htmlFor="category" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
@@ -133,7 +165,7 @@ export default function CoursesPage() {
                           id="category"
                           value={filters.category}
                           onChange={(e) => setFilters({...filters, category: e.target.value})}
-                          className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-slate-900 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 dark:border-slate-600 dark:bg-slate-700 dark:text-white"
+                          className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-slate-900 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 dark:border-slate-600 dark:bg-slate-700 dark:text-white z-50"
                         >
                           <option value="">Semua Kategori</option>
                           {categories.map(category => (
@@ -149,7 +181,7 @@ export default function CoursesPage() {
                           id="level"
                           value={filters.level}
                           onChange={(e) => setFilters({...filters, level: e.target.value})}
-                          className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-slate-900 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 dark:border-slate-600 dark:bg-slate-700 dark:text-white"
+                          className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-slate-900 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 dark:border-slate-600 dark:bg-slate-700 dark:text-white z-50"
                         >
                           <option value="">Semua Level</option>
                           {levels.map(level => (
@@ -158,19 +190,22 @@ export default function CoursesPage() {
                         </select>
                       </div>
                     </div>
-                    <div className="mt-4 flex justify-end">
+                    <div className="mt-5 flex justify-end">
                       <button
                         type="button"
                         onClick={resetFilters}
-                            className="flex items-center rounded-lg bg-slate-100 px-3 py-1.5 text-sm font-medium text-slate-700 hover:bg-slate-200 dark:bg-slate-700 dark:text-slate-300 dark:hover:bg-slate-600 transition-colors duration-300"
+                        className="flex items-center rounded-lg bg-slate-100 px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-200 dark:bg-slate-700 dark:text-slate-300 dark:hover:bg-slate-600 transition-colors duration-300"
                       >
-                        <FilterX className="mr-1 h-4 w-4" />
-                        Reset
+                        <FilterX className="mr-2 h-4 w-4" />
+                        Reset Filter
                       </button>
                     </div>
                   </div>
                 </div>
               </form>
+              
+              {/* Spacer for dropdown */}
+              <div className={`transition-all duration-300 ${showFilters ? 'h-52 md:h-44' : 'h-0'}`}></div>
             </div>
           </div>
             </AnimateOnScroll>
@@ -179,7 +214,7 @@ export default function CoursesPage() {
       </AnimateOnScroll>
 
       {/* Main Content */}
-      <section className="py-16">
+      <section className="py-12">
         <div className="container mx-auto px-6">
           <AnimateOnScroll animation="fade">
           <div className="mb-8 flex flex-col sm:flex-row sm:items-center justify-between">
@@ -244,10 +279,10 @@ export default function CoursesPage() {
                       
                       <div className="absolute bottom-0 left-0 w-full p-4">
                         <div className="flex flex-wrap gap-2 opacity-0 transition-all duration-500 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0">
-                          <span className="inline-flex items-center rounded-full bg-blue-100/90 px-2.5 py-0.5 text-xs font-medium text-blue-800 backdrop-blur-sm dark:bg-blue-900/90 dark:text-blue-300">
+                          <span className="inline-flex items-center rounded-full bg-blue-100/90 px-2.5 py-0.5 text-xs font-medium text-blue-800 dark:bg-blue-900/90 dark:text-blue-300">
                             {course.level}
                           </span>
-                          <span className="inline-flex items-center rounded-full bg-slate-100/90 px-2.5 py-0.5 text-xs font-medium text-slate-800 backdrop-blur-sm dark:bg-slate-800/90 dark:text-slate-300">
+                          <span className="inline-flex items-center rounded-full bg-slate-100/90 px-2.5 py-0.5 text-xs font-medium text-slate-800 dark:bg-slate-800/90 dark:text-slate-300">
                             {course.lessons} Pelajaran
                           </span>
                         </div>

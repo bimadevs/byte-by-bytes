@@ -148,7 +148,7 @@ export function WhatsAppModal({
               </div>
               <div>
                 <h4 className="font-bold text-slate-900 dark:text-white">Bergabunglah sekarang</h4>
-                <p className="text-xs text-slate-600 dark:text-slate-400">400+ anggota aktif</p>
+                <p className="text-xs text-slate-600 dark:text-slate-400">100+ anggota aktif</p>
               </div>
             </div>
             <div className="animate-bounce">
