@@ -1,7 +1,7 @@
 "use client";
 
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import { User, AuthState } from '@/lib/types';
+import { User, AuthState, UserRole } from '@/lib/types';
 import { createClient_browser } from '@/lib/supabase';
 
 // Buat context untuk autentikasi
@@ -66,6 +66,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
                 address: profile?.address,
                 created_at: user.created_at,
                 updated_at: profile?.updated_at,
+                role: profile?.role || UserRole.USER
               },
               isLoading: false,
               error: null,
@@ -258,8 +259,14 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
           .single();
         
         if (profileData) {
+          // Pastikan semua properti User tersedia
+          const userWithRequiredProps: User = {
+            ...profileData,
+            role: profileData.role || UserRole.USER
+          };
+          
           setAuthState({
-            user: profileData,
+            user: userWithRequiredProps,
             isLoading: false,
             error: null,
           });

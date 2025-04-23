@@ -15,7 +15,6 @@ export interface User {
   birth_place: string | null;
   birth_date: string | null;
   address: string | null;
-  bio: string | null;
 }
 
 export interface AuthState {

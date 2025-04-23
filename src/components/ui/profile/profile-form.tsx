@@ -48,9 +48,6 @@ const profileSchema = z.object({
   address: z.string().max(500, {
     message: "Alamat tidak boleh lebih dari 500 karakter.",
   }).optional().nullable(),
-  bio: z.string().max(160, {
-    message: "Bio must not be longer than 160 characters.",
-  }).optional().nullable(),
 });
 
 type ProfileFormValues = z.infer<typeof profileSchema>;
@@ -84,7 +81,6 @@ export function ProfileForm() {
       birth_place: authState.user?.birth_place || "",
       birth_date: authState.user?.birth_date || "",
       address: authState.user?.address || "",
-      bio: authState.user?.bio || "",
     },
     mode: "onChange",
   });
@@ -99,7 +95,6 @@ export function ProfileForm() {
         birth_place: authState.user.birth_place || "",
         birth_date: authState.user.birth_date || "",
         address: authState.user.address || "",
-        bio: authState.user.bio || "",
       });
     }
   }, [authState.user, form]);
