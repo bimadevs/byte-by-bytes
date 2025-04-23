@@ -148,4 +148,72 @@ export function searchCourses(keyword: string): Course[] {
       course.category.toLowerCase().includes(lowercaseKeyword)
     )
     .map(convertToCourse);
+}
+
+// File ini berisi data kursus dummy yang dapat digunakan
+// saat sistem file tidak tersedia (di lingkungan client)
+
+interface CourseData {
+  id: string;
+  title: string;
+  description: string;
+  image?: string;
+  level: string;
+  category: string;
+  lessonsCount: number;
+  lessons: number;
+}
+
+// Data kursus dummy
+const COURSES: CourseData[] = [
+  {
+    id: "nextjs-dasar",
+    title: "Next.js Dasar",
+    description: "Belajar dasar-dasar Next.js untuk membangun aplikasi web modern",
+    image: "/images/courses/nextjs-dasar.jpg",
+    level: "Pemula",
+    category: "Frontend",
+    lessonsCount: 10,
+    lessons: 10,
+  },
+  {
+    id: "react-hooks",
+    title: "React Hooks",
+    description: "Menguasai React Hooks untuk state management yang lebih baik",
+    image: "/images/courses/react-hooks.jpg",
+    level: "Menengah",
+    category: "Frontend",
+    lessonsCount: 8,
+    lessons: 8,
+  },
+  {
+    id: "typescript-untuk-pemula",
+    title: "TypeScript untuk Pemula",
+    description: "Belajar TypeScript dari dasar untuk membangun aplikasi yang lebih aman",
+    image: "/images/courses/typescript.jpg",
+    level: "Pemula",
+    category: "Bahasa Pemrograman",
+    lessonsCount: 12,
+    lessons: 12,
+  },
+  {
+    id: "supabase-auth",
+    title: "Autentikasi dengan Supabase",
+    description: "Implementasi sistem autentikasi lengkap dengan Supabase",
+    image: "/images/courses/supabase-auth.jpg",
+    level: "Menengah",
+    category: "Backend",
+    lessonsCount: 6,
+    lessons: 6,
+  },
+];
+
+// Mendapatkan semua kursus (dummy untuk client-side)
+export function getDummyCourses(): CourseData[] {
+  return COURSES;
+}
+
+// Mendapatkan kursus berdasarkan ID (dummy untuk client-side)
+export function getDummyCourseById(id: string): CourseData | undefined {
+  return COURSES.find(course => course.id === id);
 } 

@@ -6,6 +6,7 @@ import { Metadata } from "next";
 import Image from "next/image";
 import { CommunityBanner } from "@/components/ui/CommunityBanner";
 import { WHATSAPP_GROUP_LINK, COMMUNITY_MEMBER_COUNT } from "@/lib/constant";
+import { CourseLessonsList } from "@/components/ui/kursus/course-lessons-list";
 
 type CoursePageProps = {
   params: {
@@ -172,28 +173,10 @@ export default async function CoursePage({ params }: CoursePageProps) {
                   
                   {course.lessons.length > 0 ? (
                     <div className="mb-6">
-                      <ol className="relative space-y-4 border-l border-slate-200 dark:border-slate-700">
-                        {course.lessons.map((lesson, index) => (
-                          <li key={lesson.id} className="ml-6">
-                            <span className="absolute -left-3 flex h-6 w-6 items-center justify-center rounded-full bg-indigo-100 text-xs font-medium text-indigo-800 ring-2 ring-white dark:bg-indigo-900/30 dark:text-indigo-300 dark:ring-slate-900">
-                              {index + 1}
-                            </span>
-                            <Link
-                              href={`/kursus/${params.slug}/pelajaran/${lesson.id}`}
-                              className="group block rounded-lg p-3 transition-colors hover:bg-slate-100 dark:hover:bg-slate-700/30"
-                            >
-                              <h4 className="mb-1 font-medium text-slate-900 group-hover:text-indigo-600 dark:text-white dark:group-hover:text-indigo-400">
-                                {lesson.title}
-                              </h4>
-                              {lesson.description && (
-                                <p className="text-xs text-slate-500 dark:text-slate-400">
-                                  {lesson.description}
-                                </p>
-                              )}
-                            </Link>
-                          </li>
-                        ))}
-                      </ol>
+                      <CourseLessonsList
+                        courseId={params.slug}
+                        lessons={course.lessons}
+                      />
                     </div>
                   ) : (
                     <p className="mb-6 text-sm text-slate-600 dark:text-slate-400">

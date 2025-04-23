@@ -308,7 +308,7 @@ export function ProfileForm() {
           </label>
         </div>
         
-        <div>
+        <div className="text-center md:text-left">
           <h2 className="text-xl font-semibold text-slate-900 dark:text-slate-50 mb-2">
             {authState.user.full_name || "Pengguna"}
           </h2>

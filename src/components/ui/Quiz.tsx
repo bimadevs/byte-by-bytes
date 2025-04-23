@@ -3,6 +3,8 @@
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { Question, QuestionProps } from "./Question";
+import { useAuth } from "@/components/auth-provider";
+import Link from "next/link";
 
 export interface QuizProps {
   id: string;
@@ -17,6 +19,7 @@ export interface QuizQuestion extends Omit<QuestionProps, "id"> {
 }
 
 export function Quiz({ id, title, description, questions, showResults = true }: QuizProps) {
+  const { authState } = useAuth();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [answers, setAnswers] = useState<Record<string, string | null>>({});
   const [showingResults, setShowingResults] = useState(false);
@@ -69,6 +72,30 @@ export function Quiz({ id, title, description, questions, showResults = true }: 
       percentage: Math.round((correctCount / questions.length) * 100)
     };
   };
+
+  // Cek jika user belum login
+  if (!authState.user) {
+    return (
+      <div className="bg-card border rounded-lg p-6 my-8 shadow-sm">
+        <h2 className="text-xl font-semibold mb-4">{title}</h2>
+        {description && <p className="text-muted-foreground mb-6">{description}</p>}
+        
+        <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-6 my-4 text-center dark:bg-yellow-900/20 dark:border-yellow-800">
+          <h3 className="font-semibold text-lg text-yellow-800 dark:text-yellow-300 mb-2">Login Diperlukan</h3>
+          <p className="text-yellow-700 dark:text-yellow-400 mb-4">
+            Silakan login terlebih dahulu untuk mengakses quiz ini dan melacak progres belajar Anda.
+          </p>
+          <Link href="/auth/login" className="inline-flex items-center justify-center rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+            Login Sekarang
+          </Link>
+        </div>
+        
+        <div className="mt-4 border-t pt-4 text-sm text-slate-500 dark:text-slate-400">
+          <p>Quiz ini berisi {questions.length} pertanyaan tentang materi yang telah dipelajari.</p>
+        </div>
+      </div>
+    );
+  }
   
   if (showingResults) {
     const { score, total, percentage } = calculateScore();

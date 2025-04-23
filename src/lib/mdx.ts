@@ -1,4 +1,5 @@
-import fs from "fs";
+import { readFile, readdir, stat } from "fs/promises";
+import { existsSync } from "fs";
 import path from "path";
 import matter from "gray-matter";
 import { compileMDX } from "next-mdx-remote/rsc";
@@ -8,6 +9,8 @@ import remarkGfm from "remark-gfm";
 import { CompileMDXResult } from "next-mdx-remote/rsc";
 import { Question } from "@/components/ui/Question";
 import { Quiz } from "@/components/ui/Quiz";
+import "server-only";
+import { Course, Lesson, LessonData } from "./types";
 
 // Path ke direktori konten
 const contentDirectory = path.join(process.cwd(), "src/content");
@@ -47,52 +50,36 @@ interface CourseData extends CourseMetadata {
   id: string;
 }
 
-// Interface untuk pelajaran yang diambil dari sistem file
-interface LessonData extends LessonMetadata {
-  id: string;
-}
-
-// Interface untuk kursus dengan konten MDX dan pelajaran
-interface Course extends CourseData {
-  content: CompileMDXResult<Record<string, unknown>>;
-  lessons: LessonData[];
-}
-
-// Interface untuk pelajaran dengan konten MDX
-interface Lesson extends LessonData {
-  courseId: string;
-  content: CompileMDXResult<Record<string, unknown>>;
-}
-
 // Mendapatkan semua materi kursus
 export async function getAllCourses(): Promise<CourseData[]> {
   const coursesDirectory = path.join(contentDirectory, "courses");
   
-  if (!fs.existsSync(coursesDirectory)) {
+  if (!existsSync(coursesDirectory)) {
     return [];
   }
   
-  const courseIds = fs.readdirSync(coursesDirectory);
+  const courseIds = await readdir(coursesDirectory);
   
-  const courses = courseIds
-    .map((courseId) => {
-      const fullPath = path.join(coursesDirectory, courseId, "index.mdx");
-      
-      if (!fs.existsSync(fullPath)) {
-        return null;
-      }
-      
-      const fileContents = fs.readFileSync(fullPath, "utf8");
-      const { data } = matter(fileContents);
-      
-      const courseData = data as CourseMetadata;
-      
-      return {
-        id: courseId,
-        ...courseData,
-      };
-    })
-    .filter((course): course is CourseData => course !== null);
+  const coursesPromises = courseIds.map(async (courseId) => {
+    const fullPath = path.join(coursesDirectory, courseId, "index.mdx");
+    
+    if (!existsSync(fullPath)) {
+      return null;
+    }
+    
+    const fileContents = await readFile(fullPath, "utf8");
+    const { data } = matter(fileContents);
+    
+    const courseData = data as CourseMetadata;
+    
+    return {
+      id: courseId,
+      ...courseData,
+    };
+  });
+  
+  const coursesWithNull = await Promise.all(coursesPromises);
+  const courses = coursesWithNull.filter((course): course is CourseData => course !== null);
   
   return courses;
 }
@@ -101,11 +88,11 @@ export async function getAllCourses(): Promise<CourseData[]> {
 export async function getCourseById(courseId: string): Promise<Course | null> {
   const fullPath = path.join(contentDirectory, "courses", courseId, "index.mdx");
   
-  if (!fs.existsSync(fullPath)) {
+  if (!existsSync(fullPath)) {
     return null;
   }
   
-  const fileContents = fs.readFileSync(fullPath, "utf8");
+  const fileContents = await readFile(fullPath, "utf8");
   const { data, content } = matter(fileContents);
   
   const mdxSource = await compileMDX({
@@ -124,14 +111,14 @@ export async function getCourseById(courseId: string): Promise<Course | null> {
   const lessonsDirectory = path.join(contentDirectory, "courses", courseId, "lessons");
   let lessons: LessonData[] = [];
   
-  if (fs.existsSync(lessonsDirectory)) {
-    const lessonFiles = fs.readdirSync(lessonsDirectory);
+  if (existsSync(lessonsDirectory)) {
+    const lessonFiles = await readdir(lessonsDirectory);
     
-    lessons = lessonFiles
+    const lessonsPromises = lessonFiles
       .filter((file) => file.endsWith(".mdx"))
-      .map((file) => {
+      .map(async (file) => {
         const lessonPath = path.join(lessonsDirectory, file);
-        const lessonContent = fs.readFileSync(lessonPath, "utf8");
+        const lessonContent = await readFile(lessonPath, "utf8");
         const { data } = matter(lessonContent);
         
         const lessonData = data as LessonMetadata;
@@ -140,15 +127,20 @@ export async function getCourseById(courseId: string): Promise<Course | null> {
           id: file.replace(/\.mdx$/, ""),
           ...lessonData,
         };
-      })
-      .sort((a, b) => a.order - b.order);
+      });
+      
+    const unsortedLessons = await Promise.all(lessonsPromises);
+    lessons = unsortedLessons.sort((a, b) => a.order - b.order);
   }
   
   const courseData = data as CourseMetadata;
   
   return {
     id: courseId,
-    content: mdxSource,
+    content: {
+      ...mdxSource,
+      text: content,
+    },
     lessons,
     ...courseData,
   };
@@ -158,11 +150,11 @@ export async function getCourseById(courseId: string): Promise<Course | null> {
 export async function getLessonById(courseId: string, lessonId: string): Promise<Lesson | null> {
   const fullPath = path.join(contentDirectory, "courses", courseId, "lessons", `${lessonId}.mdx`);
   
-  if (!fs.existsSync(fullPath)) {
+  if (!existsSync(fullPath)) {
     return null;
   }
   
-  const fileContents = fs.readFileSync(fullPath, "utf8");
+  const fileContents = await readFile(fullPath, "utf8");
   const { data, content } = matter(fileContents);
   
   const mdxSource = await compileMDX({
@@ -182,7 +174,10 @@ export async function getLessonById(courseId: string, lessonId: string): Promise
   return {
     id: lessonId,
     courseId,
-    content: mdxSource,
+    content: {
+      ...mdxSource,
+      text: content,
+    },
     ...lessonData,
   };
 } 
