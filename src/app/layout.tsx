@@ -2,11 +2,13 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
+import { AuthProvider } from "@/components/auth-provider";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { WhatsAppModal } from "@/components/ui/WhatsAppModal";
 import { WHATSAPP_GROUP_LINK } from "@/lib/constant";
 import { PageTransition } from "@/components/animations/page-transitions";
+import { Toaster } from "@/components/ui/toaster";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -57,21 +59,24 @@ export default function RootLayout({
           defaultTheme="dark"
           enableSystem={false}
         >
-          <div className="absolute inset-0 -z-10 bg-[radial-gradient(#1e293b_1px,transparent_1px)] [background-size:20px_20px] opacity-50"></div>
-          <Header />
-          <main className="flex-1">
-            <PageTransition>
-              {children}
-            </PageTransition>
-          </main>
-          <Footer />
-          
-          {/* WhatsApp Modal dengan delay 5 detik dan hanya tampil sekali per sesi */}
-          <WhatsAppModal 
-            whatsappLink={WHATSAPP_GROUP_LINK}
-            delay={5000}
-            showOnce={true}
-          />
+          <AuthProvider>
+            <div className="absolute inset-0 -z-10 bg-[radial-gradient(#1e293b_1px,transparent_1px)] [background-size:20px_20px] opacity-50"></div>
+            <Header />
+            <main className="flex-1">
+              <PageTransition>
+                {children}
+              </PageTransition>
+            </main>
+            <Footer />
+            
+            {/* WhatsApp Modal dengan delay 5 detik dan hanya tampil sekali per sesi */}
+            <WhatsAppModal 
+              whatsappLink={WHATSAPP_GROUP_LINK}
+              delay={5000}
+              showOnce={true}
+            />
+            <Toaster />
+          </AuthProvider>
         </ThemeProvider>
       </body>
     </html>

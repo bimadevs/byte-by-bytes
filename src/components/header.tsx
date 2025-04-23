@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X, BookOpen, Home, Info } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { UserDropdown } from "./ui/auth/user-dropdown";
 
 export function Header() {
   const pathname = usePathname();
@@ -109,15 +110,22 @@ export function Header() {
                 Tentang
               </Link>
             </motion.div>
+            
+            {/* User Dropdown */}
+            <div className="ml-4">
+              <UserDropdown />
+            </div>
           </motion.nav>
 
-          {/* Mobile Menu Button */}
+          {/* Mobile Menu Button & User Dropdown */}
           <motion.div 
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="flex items-center md:hidden"
+            className="flex items-center gap-4 md:hidden"
           >
+            <UserDropdown />
+            
             <motion.button
               whileTap={{ scale: 0.9 }}
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
