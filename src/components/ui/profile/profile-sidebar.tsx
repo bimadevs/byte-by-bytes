@@ -31,32 +31,7 @@ export function ProfileSidebar() {
       label: "Profil Saya",
       href: "/profile",
       icon: <UserIcon className="h-5 w-5" />
-    },
-    {
-      label: "Kursus Saya",
-      href: "/kursus/progres",
-      icon: <BookOpen className="h-5 w-5" />
-    },
-    {
-      label: "Riwayat Belajar",
-      href: "/riwayat",
-      icon: <History className="h-5 w-5" />
-    },
-    {
-      label: "Keamanan",
-      href: "/profile/security",
-      icon: <Lock className="h-5 w-5" />
-    },
-    {
-      label: "Notifikasi",
-      href: "/profile/notifications",
-      icon: <Bell className="h-5 w-5" />
-    },
-    {
-      label: "Pengaturan",
-      href: "/pengaturan",
-      icon: <Settings className="h-5 w-5" />
-    },
+    }
   ];
   
   return (

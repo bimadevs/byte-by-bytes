@@ -341,7 +341,7 @@ export function ProfileForm() {
                       </div>
                       <Input 
                         placeholder="Masukkan nama lengkap" 
-                        className="pl-10" 
+                        className="pl-10 border-white " 
                         {...field} 
                       />
                     </div>
@@ -364,7 +364,7 @@ export function ProfileForm() {
                       </div>
                       <Input 
                         placeholder="Email" 
-                        className="pl-10 bg-slate-100 dark:bg-slate-800/60" 
+                        className="pl-10 border-white" 
                         disabled
                         {...field} 
                       />
@@ -390,7 +390,7 @@ export function ProfileForm() {
                       </div>
                       <Input 
                         placeholder="Masukkan nomor telepon" 
-                        className="pl-10" 
+                        className="pl-10 border-white" 
                         {...field} 
                         value={field.value || ""}
                       />
@@ -414,7 +414,7 @@ export function ProfileForm() {
                       </div>
                       <Input 
                         placeholder="Masukkan tempat lahir" 
-                        className="pl-10" 
+                        className="pl-10 border-white" 
                         {...field} 
                         value={field.value || ""}
                       />
@@ -438,7 +438,7 @@ export function ProfileForm() {
                       </div>
                       <Input 
                         type="date" 
-                        className="pl-10" 
+                        className="pl-10 border-white" 
                         {...field} 
                         value={field.value || ""}
                       />
@@ -463,7 +463,7 @@ export function ProfileForm() {
                     </div>
                     <Textarea
                       placeholder="Masukkan alamat lengkap"
-                      className="pl-10 min-h-24"
+                      className="pl-10 min-h-24 border-white"
                       {...field}
                       value={field.value || ""}
                     />

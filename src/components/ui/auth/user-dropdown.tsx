@@ -100,30 +100,6 @@ export function UserDropdown() {
               <UserIcon className="mr-2 h-4 w-4" />
               Profil Saya
             </Link>
-            <Link
-              href="/kursus/progres"
-              className="flex items-center px-4 py-2 text-sm text-slate-700 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-700"
-              onClick={() => setIsOpen(false)}
-            >
-              <BookOpen className="mr-2 h-4 w-4" />
-              Kursus Saya
-            </Link>
-            <Link
-              href="/riwayat"
-              className="flex items-center px-4 py-2 text-sm text-slate-700 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-700"
-              onClick={() => setIsOpen(false)}
-            >
-              <History className="mr-2 h-4 w-4" />
-              Riwayat Belajar
-            </Link>
-            <Link
-              href="/pengaturan"
-              className="flex items-center px-4 py-2 text-sm text-slate-700 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-700"
-              onClick={() => setIsOpen(false)}
-            >
-              <Settings className="mr-2 h-4 w-4" />
-              Pengaturan
-            </Link>
           </div>
           
           <div className="border-t border-slate-200 py-1 dark:border-slate-700">

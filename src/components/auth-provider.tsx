@@ -7,15 +7,15 @@ import { createClient_browser } from '@/lib/supabase';
 // Buat context untuk autentikasi
 export const AuthContext = createContext<{
   authState: AuthState;
-  signIn: (email: string, password: string) => Promise<{ error: any }>;
-  signUp: (email: string, password: string, fullName: string) => Promise<{ error: any }>;
+  signInWithGoogle: () => Promise<{ error: any }>;
+  signInWithGithub: () => Promise<{ error: any }>;
   signOut: () => Promise<void>;
   updateProfile: (data: Partial<User>) => Promise<{ error: any | null }>;
   refreshUser: () => Promise<void>;
 }>({
   authState: { user: null, isLoading: true, error: null },
-  signIn: async () => ({ error: null }),
-  signUp: async () => ({ error: null }),
+  signInWithGoogle: async () => ({ error: null }),
+  signInWithGithub: async () => ({ error: null }),
   signOut: async () => {},
   updateProfile: async () => ({ error: null }),
   refreshUser: async () => {},
@@ -58,7 +58,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
               user: {
                 id: user.id,
                 email: user.email || '',
-                full_name: profile?.full_name || user.user_metadata?.full_name,
+                full_name: profile?.full_name || user.user_metadata?.full_name || user.user_metadata?.name,
                 avatar_url: profile?.avatar_url || user.user_metadata?.avatar_url,
                 birth_date: profile?.birth_date,
                 birth_place: profile?.birth_place,
@@ -104,14 +104,16 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     };
   }, []);
 
-  // Fungsi Sign In dengan email dan password
-  const signIn = async (email: string, password: string) => {
+  // Fungsi Sign In dengan Google
+  const signInWithGoogle = async () => {
     setAuthState(prev => ({ ...prev, isLoading: true, error: null }));
     
     try {
-      const { data, error } = await supabase.auth.signInWithPassword({
-        email,
-        password,
+      const { data, error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: {
+          redirectTo: `${window.location.origin}/auth/callback`,
+        },
       });
       
       if (error) {
@@ -134,18 +136,15 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
-  // Fungsi Sign Up dengan email dan password
-  const signUp = async (email: string, password: string, fullName: string) => {
+  // Fungsi Sign In dengan GitHub
+  const signInWithGithub = async () => {
     setAuthState(prev => ({ ...prev, isLoading: true, error: null }));
     
     try {
-      const { data, error } = await supabase.auth.signUp({
-        email,
-        password,
+      const { data, error } = await supabase.auth.signInWithOAuth({
+        provider: 'github',
         options: {
-          data: {
-            full_name: fullName,
-          },
+          redirectTo: `${window.location.origin}/auth/callback`,
         },
       });
       
@@ -156,18 +155,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
           error: error.message 
         }));
         return { error };
-      }
-      
-      // Jika signup berhasil, tambahkan data ke tabel profiles
-      if (data?.user) {
-        await supabase.from('profiles').insert([
-          {
-            id: data.user.id,
-            email: email,
-            full_name: fullName,
-            updated_at: new Date().toISOString(),
-          },
-        ]);
       }
       
       return { error: null };
@@ -251,45 +238,58 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         throw error;
       }
       
-      if (userData?.user) {
-        const { data: profileData } = await supabase
+      if (userData.user) {
+        const { data: profile } = await supabase
           .from('profiles')
           .select('*')
           .eq('id', userData.user.id)
           .single();
         
-        if (profileData) {
-          // Pastikan semua properti User tersedia
-          const userWithRequiredProps: User = {
-            ...profileData,
-            role: profileData.role || UserRole.USER
-          };
-          
-          setAuthState({
-            user: userWithRequiredProps,
-            isLoading: false,
-            error: null,
-          });
-        }
+        setAuthState({
+          user: {
+            id: userData.user.id,
+            email: userData.user.email || '',
+            full_name: profile?.full_name || userData.user.user_metadata?.full_name || userData.user.user_metadata?.name,
+            avatar_url: profile?.avatar_url || userData.user.user_metadata?.avatar_url,
+            birth_date: profile?.birth_date,
+            birth_place: profile?.birth_place,
+            phone_number: profile?.phone_number,
+            address: profile?.address,
+            created_at: userData.user.created_at,
+            updated_at: profile?.updated_at,
+            role: profile?.role || UserRole.USER
+          },
+          isLoading: false,
+          error: null,
+        });
+      } else {
+        setAuthState({
+          user: null,
+          isLoading: false,
+          error: null,
+        });
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error refreshing user:', error);
-    } finally {
-      setAuthState((prev) => ({ ...prev, isLoading: false }));
+      setAuthState({
+        user: null,
+        isLoading: false,
+        error: error.message,
+      });
     }
   };
 
-  const contextValue = {
-    authState,
-    signIn,
-    signUp,
-    signOut,
-    updateProfile,
-    refreshUser,
-  };
-
   return (
-    <AuthContext.Provider value={contextValue}>
+    <AuthContext.Provider
+      value={{
+        authState,
+        signInWithGoogle,
+        signInWithGithub,
+        signOut,
+        updateProfile,
+        refreshUser,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );
