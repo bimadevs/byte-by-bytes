@@ -45,6 +45,17 @@ export interface LessonProgress {
   updated_at?: string;
 }
 
+export interface Certificate {
+  id: string;
+  user_id: string;
+  course_id: string;
+  course_title: string;
+  user_name: string;
+  certificate_number: string;
+  issue_date: string;
+  created_at: string;
+}
+
 export interface UserSession {
   id: string;
   email: string;

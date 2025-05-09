@@ -7,6 +7,7 @@ import Image from "next/image";
 import { CommunityBanner } from "@/components/ui/CommunityBanner";
 import { WHATSAPP_GROUP_LINK, COMMUNITY_MEMBER_COUNT } from "@/lib/constant";
 import { CourseLessonsList } from "@/components/ui/kursus/course-lessons-list";
+import { ClaimCertificateButton } from "@/components/ui/kursus/claim-certificate-button";
 
 type CoursePageProps = {
   params: {
@@ -185,13 +186,22 @@ export default async function CoursePage({ params }: CoursePageProps) {
                   )}
                   
                   {course.lessons.length > 0 && (
-                    <Link
-                      href={`/kursus/${params.slug}/pelajaran/${course.lessons[0].id}`}
-                      className="flex w-full items-center justify-center gap-2 rounded-lg bg-indigo-600 px-4 py-3 font-medium text-white transition-colors hover:bg-indigo-700"
-                    >
-                      <span>Mulai Belajar</span>
-                      <ArrowRight size={18} />
-                    </Link>
+                    <>
+                      <Link
+                        href={`/kursus/${params.slug}/pelajaran/${course.lessons[0].id}`}
+                        className="flex w-full items-center justify-center gap-2 rounded-lg bg-indigo-600 px-4 py-3 font-medium text-white transition-colors hover:bg-indigo-700 mb-4"
+                      >
+                        <span>Mulai Belajar</span>
+                        <ArrowRight size={18} />
+                      </Link>
+                      
+                      <div className="border-t border-slate-200 dark:border-slate-700 pt-4 mt-4">
+                        <h4 className="text-sm font-medium text-slate-900 dark:text-white mb-3">
+                          Sudah selesai seluruh pelajaran?
+                        </h4>
+                        <ClaimCertificateButton courseId={params.slug} />
+                      </div>
+                    </>
                   )}
                   <div className="mt-6">
                   <CommunityBanner
