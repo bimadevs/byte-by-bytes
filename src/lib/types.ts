@@ -49,13 +49,14 @@ export interface Course {
   id: string;
   title: string;
   description: string;
-  image: string;
+  image?: string;
   level: string;
   lessonsCount?: number;
   category: string;
   featured: boolean;
   content: {
     content: any;
+    text?: string;
   };
   lessonsData: Lesson[];
   lessons: LessonData[];
@@ -64,15 +65,19 @@ export interface Course {
 export interface Lesson {
   id: string;
   title: string;
-  description: string;
+  description?: string;
   order: number;
-  content?: any;
+  courseId?: string;
+  content?: {
+    content: any;
+    text?: string;
+  };
 }
 
 export interface LessonData {
   id: string;
   title: string;
-  description: string;
+  description?: string;
   order: number;
 }
 

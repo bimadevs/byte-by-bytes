@@ -9,6 +9,7 @@ export const AuthContext = createContext<{
   authState: AuthState;
   signInWithGoogle: () => Promise<{ error: any }>;
   signInWithGithub: () => Promise<{ error: any }>;
+  signUp: (email: string, password: string, fullName: string) => Promise<{ error: any | null }>;
   signOut: () => Promise<void>;
   updateProfile: (data: Partial<User>) => Promise<{ error: any | null }>;
   refreshUser: () => Promise<void>;
@@ -16,6 +17,7 @@ export const AuthContext = createContext<{
   authState: { user: null, isLoading: true, error: null },
   signInWithGoogle: async () => ({ error: null }),
   signInWithGithub: async () => ({ error: null }),
+  signUp: async () => ({ error: null }),
   signOut: async () => {},
   updateProfile: async () => ({ error: null }),
   refreshUser: async () => {},
@@ -279,12 +281,68 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
+  // Fungsi Sign Up (registrasi)
+  const signUp = async (email: string, password: string, fullName: string) => {
+    setAuthState(prev => ({ ...prev, isLoading: true, error: null }));
+    
+    try {
+      // Register dengan email dan password
+      const { data, error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          data: {
+            full_name: fullName
+          },
+          emailRedirectTo: `${window.location.origin}/auth/callback`,
+        }
+      });
+      
+      if (error) {
+        setAuthState(prev => ({ 
+          ...prev, 
+          isLoading: false, 
+          error: error.message 
+        }));
+        return { error };
+      }
+      
+      // Buat entry di tabel profiles jika user berhasil dibuat
+      if (data.user) {
+        const { error: profileError } = await supabase
+          .from('profiles')
+          .insert({
+            id: data.user.id,
+            full_name: fullName,
+            email: email,
+            role: UserRole.USER
+          });
+          
+        if (profileError) {
+          console.error('Error creating profile:', profileError);
+          // Tetap lanjutkan meskipun ada error saat buat profil
+        }
+      }
+      
+      setAuthState(prev => ({ ...prev, isLoading: false }));
+      return { error: null };
+    } catch (error: any) {
+      setAuthState(prev => ({ 
+        ...prev, 
+        isLoading: false, 
+        error: error.message 
+      }));
+      return { error };
+    }
+  };
+
   return (
     <AuthContext.Provider
       value={{
         authState,
         signInWithGoogle,
         signInWithGithub,
+        signUp,
         signOut,
         updateProfile,
         refreshUser,

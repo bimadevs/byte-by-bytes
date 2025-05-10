@@ -24,7 +24,7 @@ export default function LessonPageClient({
   nextLesson 
 }: LessonPageClientProps) {
   // Hitung perkiraan waktu baca
-  const wordCount = lesson.content.text?.split(/\s+/)?.length || 0;
+  const wordCount = lesson.content?.text?.split(/\s+/)?.length || 0;
   const readingTime = Math.ceil(wordCount / 200); // 200 kata per menit
   
   return (
@@ -62,7 +62,7 @@ export default function LessonPageClient({
             
             {/* Lesson content - menggunakan children dari mdx yang sudah diproses */}
             <div className="prose prose-slate max-w-none dark:prose-invert prose-headings:font-bold prose-headings:text-slate-900 dark:prose-headings:text-white prose-a:text-indigo-600 dark:prose-a:text-indigo-400 prose-img:rounded-xl">
-              {lesson.content.content}
+              {lesson.content?.content}
             </div>
 
             {/* Tandai pelajaran selesai button */}

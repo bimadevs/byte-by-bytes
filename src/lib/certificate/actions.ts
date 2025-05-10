@@ -2,6 +2,7 @@
 
 import { createClient } from '@/lib/supabase/server';
 import { Certificate } from '@/lib/types';
+import { PostgrestFilterBuilder } from '@supabase/postgrest-js';
 
 type CertificateRecord = {
   id: string;
@@ -29,11 +30,11 @@ export async function verifyCertificateByNumber(
     // Bersihkan nomor sertifikat dari spasi
     const cleanNumber = certificateNumber.trim();
     
-    // Cari sertifikat berdasarkan nomor
+    // Cari sertifikat berdasarkan nomor menggunakan filter()
     const { data, error } = await supabase
       .from('certificates')
       .select('id, user_id, course_id, course_title, user_name, certificate_number, issue_date, created_at')
-      .eq('certificate_number', cleanNumber as string)
+      .filter('certificate_number', 'eq', cleanNumber)
       .single();
       
     if (error) {
@@ -95,7 +96,7 @@ export async function getCertificateById(
     const { data, error } = await supabase
       .from('certificates')
       .select('id, user_id, course_id, course_title, user_name, certificate_number, issue_date, created_at')
-      .eq('id', certificateId as string)
+      .filter('id', 'eq', certificateId)
       .single();
       
     if (error) {

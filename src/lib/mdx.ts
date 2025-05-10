@@ -142,6 +142,8 @@ export async function getCourseById(courseId: string): Promise<Course | null> {
       text: content,
     },
     lessons,
+    lessonsData: lessons,
+    featured: false, // Default value jika tidak ada di metadata
     ...courseData,
   };
 }
