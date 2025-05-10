@@ -51,11 +51,14 @@ export interface Course {
   description: string;
   image: string;
   level: string;
-  lessons: number;
+  lessonsCount?: number;
   category: string;
   featured: boolean;
-  content: string;
+  content: {
+    content: any;
+  };
   lessonsData: Lesson[];
+  lessons: LessonData[];
 }
 
 export interface Lesson {

@@ -68,7 +68,7 @@ export default async function CoursePage({ params }: CoursePageProps) {
                 {course.level}
               </span>
               <span className="inline-flex items-center rounded-full bg-white/10 px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">
-                {course.lessonsCount} Pelajaran
+                {course.lessons.length} Pelajaran
               </span>
               <span className="inline-flex items-center rounded-full bg-indigo-500/20 px-3 py-1 text-xs font-medium text-indigo-100 backdrop-blur-sm">
                 {course.category}
@@ -90,7 +90,7 @@ export default async function CoursePage({ params }: CoursePageProps) {
               </div>
               <div className="flex items-center gap-2">
                 <Clock size={18} />
-                <span className="text-sm">±{course.lessonsCount * 20} menit</span>
+                <span className="text-sm">±{course.lessons.length * 20} menit</span>
               </div>
               <div className="flex items-center gap-2">
                 <User size={18} />
