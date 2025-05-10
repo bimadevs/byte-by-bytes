@@ -45,6 +45,34 @@ export interface LessonProgress {
   updated_at?: string;
 }
 
+export interface Course {
+  id: string;
+  title: string;
+  description: string;
+  image: string;
+  level: string;
+  lessons: number;
+  category: string;
+  featured: boolean;
+  content: string;
+  lessonsData: Lesson[];
+}
+
+export interface Lesson {
+  id: string;
+  title: string;
+  description: string;
+  order: number;
+  content?: any;
+}
+
+export interface LessonData {
+  id: string;
+  title: string;
+  description: string;
+  order: number;
+}
+
 export interface Certificate {
   id: string;
   user_id: string;

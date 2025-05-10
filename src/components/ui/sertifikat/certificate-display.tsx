@@ -107,14 +107,14 @@ export function CertificateDisplay({ certificate }: CertificateDisplayProps) {
     : '1 Mei 2025'; // Fallback jika tanggal tidak ada
 
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center mt-16 sm:mt-20">
       <div className="w-full max-w-5xl print:w-full px-4 sm:px-6">
         {/* Non-printable actions */}
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3 }}
-          className="mb-4 sm:mb-6 flex flex-col sm:flex-row justify-between items-center gap-3 print:hidden"
+          className="mb-4 sm:mb-6 flex flex-col sm:flex-row justify-between items-center gap-3 print:hidden relative z-10"
         >
           <div className="flex gap-2 mb-3 sm:mb-0">
             <Link href="/" className="text-indigo-600 hover:text-indigo-800 dark:text-indigo-400 dark:hover:text-indigo-300 text-sm sm:text-base flex items-center gap-1 transition-colors duration-200">
@@ -200,6 +200,8 @@ export function CertificateDisplay({ certificate }: CertificateDisplayProps) {
           max-width: 1086px;
           margin: 0 auto;
           padding: 20px;
+          position: relative;
+          z-index: 1;
         }
 
         .sertifikat-container {
