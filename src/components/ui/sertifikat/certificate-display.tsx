@@ -19,18 +19,15 @@ export function CertificateDisplay({ certificate }: CertificateDisplayProps) {
   const { toast } = useToast();
   const [isDownloading, setIsDownloading] = useState(false);
 
-  // Fungsi untuk mencetak sertifikat
   const handlePrintCertificate = () => {
     window.print();
   };
 
-  // Fungsi untuk mengunduh sertifikat sebagai PDF
   const handleDownloadPDF = async () => {
     if (!certificateRef.current) return;
 
     setIsDownloading(true);
     try {
-      // Tampilkan toast untuk memberi tahu pengguna
       toast({
         title: "Sedang menyiapkan sertifikat",
         description: "Mohon tunggu sebentar..."
@@ -38,30 +35,26 @@ export function CertificateDisplay({ certificate }: CertificateDisplayProps) {
 
       const element = certificateRef.current;
 
-      // Ukuran PDF A4 Landscape
       const pdf = new jsPDF({
         orientation: "landscape",
         unit: "mm",
         format: "a4"
       });
 
-      // Mengambil gambar dari DOM element
       const canvas = await html2canvas(element, {
-        scale: 2, // Meningkatkan resolusi
+        scale: 2,
         useCORS: true,
         logging: false,
         backgroundColor: null
       });
 
       const imgData = canvas.toDataURL('image/png');
-
-      const imgWidth = 297; // A4 landscape width
-      const imgHeight = 210; // A4 landscape height
+      const imgWidth = 297;
+      const imgHeight = 210;
 
       pdf.addImage(imgData, "PNG", 0, 0, imgWidth, imgHeight);
       pdf.save(`sertifikat-${certificate.certificate_number}.pdf`);
 
-      // Tampilkan toast sukses
       toast({
         title: "Sertifikat berhasil diunduh",
         description: "File PDF telah tersimpan di perangkat Anda",
@@ -80,7 +73,6 @@ export function CertificateDisplay({ certificate }: CertificateDisplayProps) {
     }
   };
 
-  // Fungsi untuk berbagi sertifikat
   const handleShareCertificate = () => {
     if (navigator.share) {
       navigator.share({
@@ -91,7 +83,6 @@ export function CertificateDisplay({ certificate }: CertificateDisplayProps) {
         console.error("Error sharing:", error);
       });
     } else {
-      // Fallback untuk browser yang tidak mendukung Web Share API
       navigator.clipboard.writeText(window.location.href);
       toast({
         title: "URL sertifikat disalin",
@@ -101,15 +92,13 @@ export function CertificateDisplay({ certificate }: CertificateDisplayProps) {
     }
   };
 
-  // Mendapatkan tanggal dari sertifikat atau menggunakan fallback
   const formattedDate = certificate.issue_date
     ? new Intl.DateTimeFormat('id-ID', { day: 'numeric', month: 'long', year: 'numeric' }).format(new Date(certificate.issue_date))
-    : '1 Mei 2025'; // Fallback jika tanggal tidak ada
+    : '1 Mei 2025';
 
   return (
     <div className="flex flex-col items-center mt-16 sm:mt-20">
       <div className="w-full max-w-5xl print:w-full px-4 sm:px-6">
-        {/* Non-printable actions */}
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
@@ -127,22 +116,11 @@ export function CertificateDisplay({ certificate }: CertificateDisplayProps) {
             </Link>
           </div>
           <div className="flex flex-wrap gap-2 justify-center">
-            <Button
-              onClick={handlePrintCertificate}
-              variant="outline"
-              size="sm"
-              className="text-xs sm:text-sm hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all duration-200"
-            >
+            <Button onClick={handlePrintCertificate} variant="outline" size="sm" className="text-xs sm:text-sm hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all duration-200">
               <Printer className="mr-1 sm:mr-2 h-3 w-3 sm:h-4 sm:w-4" />
               Cetak
             </Button>
-            <Button
-              onClick={handleDownloadPDF}
-              variant="outline"
-              size="sm"
-              className="text-xs sm:text-sm hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all duration-200"
-              disabled={isDownloading}
-            >
+            <Button onClick={handleDownloadPDF} variant="outline" size="sm" className="text-xs sm:text-sm hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all duration-200" disabled={isDownloading}>
               {isDownloading ? (
                 <>
                   <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-indigo-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -158,29 +136,15 @@ export function CertificateDisplay({ certificate }: CertificateDisplayProps) {
                 </>
               )}
             </Button>
-            <Button
-              onClick={handleShareCertificate}
-              variant="outline"
-              size="sm"
-              className="text-xs sm:text-sm hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all duration-200"
-            >
+            <Button onClick={handleShareCertificate} variant="outline" size="sm" className="text-xs sm:text-sm hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all duration-200">
               <ShareIcon className="mr-1 sm:mr-2 h-3 w-3 sm:h-4 sm:w-4" />
               Bagikan
             </Button>
           </div>
         </motion.div>
 
-        {/* Certificate */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.98 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.5, ease: "easeOut" }}
-          className="wrapper"
-        >
-          <div
-            ref={certificateRef}
-            className="sertifikat-container"
-          >
+        <motion.div initial={{ opacity: 0, scale: 0.98 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.5, ease: "easeOut" }} className="wrapper">
+          <div ref={certificateRef} className="sertifikat-container">
             <div className="nama">{certificate.user_name}</div>
             <div className="kursus">{certificate.course_title}</div>
             <div className="tanggal">Pada {formattedDate}</div>
@@ -189,103 +153,69 @@ export function CertificateDisplay({ certificate }: CertificateDisplayProps) {
         </motion.div>
       </div>
 
-      {/* Styles khusus untuk sertifikat, cetak dan PDF */}
       <style jsx global>{`
-        * {
-          box-sizing: border-box;
-        }
-
-        .wrapper {
-          width: 100%;
-          max-width: 1086px;
-          margin: 0 auto;
-          padding: 20px;
-          position: relative;
-          z-index: 1;
-        }
-
+        * { box-sizing: border-box; }
+        .wrapper { width: 100%; max-width: 1086px; margin: 0 auto; padding: 20px; position: relative; z-index: 1; }
         .sertifikat-container {
-          position: relative;
-          width: 100%;
-          padding-top: calc(768 / 1086 * 100%); /* Rasio 768:1086 = 70.72% */
-          background-image: url('/images/Cert-Display.png');
-          background-size: cover;
-          background-position: center;
-          font-family: 'Arial', sans-serif;
-          border: 6px solid transparent;
-          background-clip: padding-box;
-          position: relative;
-          overflow: hidden;
-          border-radius: 8px;
-          box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
-        }
-
-        .sertifikat-container::before {
-          content: '';
-          position: absolute;
-          inset: -6px;
-          background: linear-gradient(45deg, #1e3a8a, #3b82f6, #1e3a8a, #eab308);
-          background-size: 400% 400%;
-          z-index: -1;
-          animation: border-gradient 8s ease infinite;
-        }
-
+  position: relative;
+  width: 100%;
+  padding-top: calc(768 / 1086 * 100%);
+  font-family: 'Arial', sans-serif;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+  background-image: 
+  url('/images/Cert-bg.png');
+  background-blend-mode: overlay;
+  background-size: cover;
+  background-position: center;
+  animation: border-gradient 8s ease infinite;
+}
         .sertifikat-container > div {
           position: absolute;
           left: 0;
           width: 100%;
           text-align: center;
         }
-
-        .nama {
-          top: 36%;
-          font-size: 4vw;
-          font-weight: bold;
-          color: #003366;
+        .nama { 
+          top: 34%; 
+          font-size: 4vw; 
+          font-weight: bold; 
+          color: #003366; 
         }
-
-        .kursus {
-          top: 55%;
-          font-size: 3.5vw;
-          color: #333;
+        .kursus { 
+          top: 51%; 
+          font-size: 3.5vw; 
+          color: #333; 
         }
-
         .tanggal {
-          bottom: 27%;
-          left: 22%;
-          width: auto;
-          font-size: 2.8vw;
-          text-align: left;
-          color: #003366;
+          bottom: 32%; 
+          left: 22%; 
+          width: auto; 
+          font-size: 2.8vw; 
+          text-align: left; 
+          color: #003366; 
         }
-
-        .nomor-sertifikat {
-          bottom: 5%;
-          left: 8%;
-          width: auto;
-          font-size: 2vw;
-          text-align: left;
-          color: #003366;
-        }
-
-        /* Tambahan untuk desktop agar teks tidak terlalu kecil */
+        .nomor-sertifikat { 
+          bottom: 5%; 
+          left: 8%; 
+          width: auto; 
+          font-size: 2vw; 
+          text-align: left; 
+          color: #003366; }
         @media (min-width: 768px) {
           .nama { font-size: 56px; }
           .kursus { font-size: 40px; }
           .tanggal { font-size: 28px; }
           .nomor-sertifikat { font-size: 18px; }
         }
-        
         @keyframes border-gradient {
           0% { background-position: 0% 50%; }
           50% { background-position: 100% 50%; }
           100% { background-position: 0% 50%; }
         }
-        
         @media print {
-          body * {
-            visibility: hidden;
-          }
+          body * { visibility: hidden; }
           .wrapper, .sertifikat-container, .sertifikat-container * {
             visibility: visible;
           }
@@ -298,7 +228,6 @@ export function CertificateDisplay({ certificate }: CertificateDisplayProps) {
             border: none;
             box-shadow: none;
           }
-          
           .sertifikat-container::before {
             display: none;
           }
@@ -306,4 +235,4 @@ export function CertificateDisplay({ certificate }: CertificateDisplayProps) {
       `}</style>
     </div>
   );
-} 
+}
